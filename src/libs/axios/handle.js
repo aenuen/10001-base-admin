@@ -3,9 +3,12 @@ import store from '@/store'
 import { getToken } from '@/libs/utils/token'
 import request from './request'
 
-const dispatchRequest = (url, method, dataset = {}) => {
+const handle = (url, method, dataset = {}) => {
   const param = {
-    url, method, [method === 'get' ? 'params' : 'data']: dataset, paramsSerializer: params => qs.stringify(params)
+    url,
+    method,
+    [method === 'get' ? 'params' : 'data']: dataset,
+    paramsSerializer: params => qs.stringify(params)
   }
   if (store.getters.token) {
     param.headers = {
@@ -17,4 +20,4 @@ const dispatchRequest = (url, method, dataset = {}) => {
   return request(param)
 }
 
-export { dispatchRequest }
+export { handle }

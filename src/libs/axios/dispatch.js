@@ -1,4 +1,4 @@
-import { dispatchRequest } from './dispatchRequest'
+import { handle } from './handle'
 
 class Dispatch {
   constructor(url) {
@@ -15,7 +15,7 @@ class Dispatch {
     } else {
       args.push(dataset)
     }
-    return dispatchRequest.apply(this, args)
+    return handle.apply(this, args)
   }
 }
 
