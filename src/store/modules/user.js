@@ -32,12 +32,16 @@ const actions = {
   login({ commit }, userInfo) { // 用户登录
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      userDispatch.use('login', { username: username.trim(), password: password }).then(response => {
-        console.log(response)
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
-        resolve()
+      userDispatch.use('login', {
+        username: username.trim(), password: password
+      }).then(({ code, data }) => {
+        if (code === 200) {
+          commit('SET_TOKEN', data.token)
+          setToken(data.token)
+          resolve()
+        } else {
+          reject('登录失败')
+        }
       }).catch(error => {
         reject(error)
       })
@@ -45,17 +49,21 @@ const actions = {
   },
   getInfo({ commit, state }) { // 获取用户信息
     return new Promise((resolve, reject) => {
-      userDispatch.use('info', state.token).then(response => {
-        const { data } = response
-        data || reject('验证失败，请重新登录。')
-        const { roles, realName, avatar, introduction } = data
-        // 角色必须是非空数组
-        roles || roles.length <= 0 || reject('角色必须是非空数组！')
-        commit('SET_ROLES', roles)
-        commit('SET_NAME', realName)
-        commit('SET_AVATAR', avatar)
-        commit('SET_INTRODUCTION', introduction)
-        resolve(data)
+      userDispatch.use('info', state.token).then(({ code, data }) => {
+        if (code === 200) {
+          data || reject('验证失败，请重新登录。')
+          const { roles, realName, avatar, introduction } = data
+          if (!roles || roles.length <= 0) {
+            reject('您的用户没有任务的权限')
+          }
+          commit('SET_ROLES', roles)
+          commit('SET_NAME', realName)
+          commit('SET_AVATAR', avatar)
+          commit('SET_INTRODUCTION', introduction)
+          resolve(data)
+        } else {
+          reject('获取用户信息失败')
+        }
       }).catch(error => {
         reject(error)
       })

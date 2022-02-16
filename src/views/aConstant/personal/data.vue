@@ -25,12 +25,15 @@
             <div slot="header" class="clearfix">
               <span>编辑资料</span>
             </div>
-            <el-tabs v-model="activeTab">
+            <el-tabs v-model="activeTab" @tab-click="handleClick">
+              <el-tab-pane label="登录密码" name="password">
+                <password :user-info="userInfo" />
+              </el-tab-pane>
               <el-tab-pane label="基本资料" name="base">
                 <base-data :user-info="userInfo" />
               </el-tab-pane>
-              <el-tab-pane label="登录密码" name="password">
-                <password :user-info="userInfo" />
+              <el-tab-pane label="更换头像" name="avatar">
+                <avatar :user-info="userInfo" />
               </el-tab-pane>
               <el-tab-pane label="电子邮箱" name="email">
                 <email :user-info="userInfo" />
@@ -47,19 +50,20 @@
 </template>
 
 <script>
-import BaseData from './components/BaseData'
 import Password from './components/Password'
+import BaseData from './components/BaseData'
+import Avatar from './components/Avatar'
 import Email from './components/Email'
 import Mobile from './components/Mobile'
 import { userDispatch } from '@/api/user'
 
 export default {
   name: 'ViewsPersonalIndex',
-  components: { BaseData, Password, Email, Mobile },
+  components: { Password, BaseData, Avatar, Email, Mobile },
   data() {
     return {
       userInfo: {},
-      activeTab: 'base'
+      activeTab: 'password'
     }
   },
   created() {
@@ -72,6 +76,10 @@ export default {
           this.userInfo = data
         }
       })
+    },
+    handleClick(tab) {
+      const query = { tab: tab.name }
+      this.$router.push({ path: this.$route.path, query })
     }
   }
 }
