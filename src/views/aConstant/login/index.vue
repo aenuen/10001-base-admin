@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import usernameLogin from './components/username'
+import usernameLogin from './components/loginForm'
 
 export default {
   name: 'ViewsLoginIndex',

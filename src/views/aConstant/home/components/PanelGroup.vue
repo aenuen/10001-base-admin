@@ -30,8 +30,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">已经入账金额</div>
-          <count-to :start-val="0" :end-val="caseMoney" :duration="3200" class="card-panel-num" />
-          元
+          <count-to :start-val="0" :end-val="caseMoney" :duration="3200" class="card-panel-num" />元
         </div>
       </div>
     </el-col>
@@ -44,7 +43,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'ViewsHomeComponentsPanelGroup',
   components: { CountTo },
-  data() { // 定义数据
+  data() {
     return {
       isLawyer: false,
       caseNumber: 0,
@@ -52,14 +51,14 @@ export default {
       caseMoney: 0
     }
   },
-  computed: { // 计算属性
+  computed: {
     ...mapGetters(['roles'])
   },
-  created() { // 渲染时运行
+  created() {
     this.ifLawyer()
     this.getInfo()
   },
-  methods: { // 方法函数
+  methods: {
     ifLawyer() {
       this.isLawyer = this.roles.includes('lawyer')
     },

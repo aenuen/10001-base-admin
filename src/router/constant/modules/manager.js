@@ -9,21 +9,21 @@ const managerRouter = {
   },
   children: [
     {
-      path: 'list', name: 'managerList', component: () => import('@/views/manager/list'),
+      path: 'list', name: 'managerList', component: () => import('@/views/aConstant/manager/list'),
       meta: {
         title: '管理员列表',
         roles: ['admin']
       }
     },
     {
-      path: 'create', name: 'managerCreate', component: () => import('@/views/manager/create'),
+      path: 'create', name: 'managerCreate', component: () => import('@/views/aConstant/manager/create'),
       meta: {
         title: '新建管理员',
         roles: ['admin']
       }
     },
     {
-      path: 'edit/:username', name: 'managerEdit', component: () => import('@/views/manager/edit'),
+      path: 'edit/:username', name: 'managerEdit', component: () => import('@/views/aConstant/manager/edit'),
       meta: {
         title: '人员编辑',
         roles: ['admin'],

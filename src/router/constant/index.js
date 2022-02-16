@@ -3,9 +3,12 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 // 固定加载
-import homeRouter from './home'
-import { loginRouter, httpRedirectRouter, authRedirectRouter } from '@/router/constant/login'
-import { errorPage401Router, errorPage404Router } from '@/router/constant/errorPage'
+import homeRouter from './modules/home'
+import { loginRouter, httpRedirectRouter, authRedirectRouter } from '@/router/constant/modules/login'
+import { errorPage401Router, errorPage404Router } from '@/router/constant/modules/errorPage'
+import personalRouter from '@/router/constant/modules/personal'
+import managerRouter from '@/router/constant/modules/manager'
+import iconsRouter from '@/router/constant/modules/icons'
 
 export const constantRoutes = [
   loginRouter, // 登录
@@ -13,7 +16,11 @@ export const constantRoutes = [
   httpRedirectRouter, // 网址重定向
   errorPage401Router, // 401页面
   errorPage404Router, // 404页面
-  homeRouter // 首页
+  personalRouter, // 个人
+  managerRouter, // 管理员
+  iconsRouter, // 图标
+  homeRouter, // 首页
+  { path: '*', redirect: '/404', hidden: true } // 无页面=404页面
 ]
 
 const createRouter = () => new Router({

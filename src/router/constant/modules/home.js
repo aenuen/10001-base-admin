@@ -3,7 +3,7 @@ import Layout from '@/components/Layout'
 const homeRouter = {
   path: '/', component: Layout, redirect: '/home', children: [
     {
-      component: () => import('@/views/home'),
+      component: () => import('@/views/aConstant/home'),
       path: 'home', name: 'home',
       meta: { title: '首页', icon: 'chart', affix: true }
     }

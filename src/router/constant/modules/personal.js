@@ -9,7 +9,7 @@ const personalRouter = {
   hidden: true,
   children: [
     {
-      path: 'data', name: 'personalData', component: () => import('@/views/personal/data'),
+      path: 'data', name: 'personalData', component: () => import('@/views/aConstant/personal/data'),
       meta: {
         title: '个人资料'
       },

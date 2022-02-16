@@ -1,14 +1,7 @@
-<!--suppress JSUnresolvedFunction -->
+<!--suppress JSUnresolvedFunction, CssUnknownProperty -->
 <template>
   <div>
-    <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      autocomplete="off"
-      label-position="left"
-    >
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="off" label-position="left">
       <div class="title-container">
         <h3 class="title">管理员登录</h3>
       </div>
@@ -16,16 +9,7 @@
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="用户名"
-          name="username"
-          type="text"
-          tabindex="1"
-          autocomplete="off"
-          @keyup.enter.native="login"
-        />
+        <el-input ref="username" v-model="loginForm.username" placeholder="用户名" name="username" type="text" tabindex="1" autocomplete="off" @keyup.enter.native="login" />
       </el-form-item>
       <el-tooltip v-model="capsTooltip" content="您输入的是大写" placement="right" manual>
         <el-form-item prop="password">
@@ -60,17 +44,11 @@ import { pmValidate } from 'plugins-methods'
 import { CryptoJsEncode } from '@/libs/cryptojs'
 
 export default {
-  name: 'ViewsLoginComponentsUsername', /* 组件名称 */
-  components: { /* 应用组件 */ },
-  filters: { /* 过滤器 */ },
-  directives: { /* 定义指令 */ },
-  props: { /* 定义传值 */
-    loginForm: {
-      type: Object,
-      required: true
-    }
+  name: 'ViewsLoginComponentsUsername',
+  props: {
+    loginForm: { type: Object, required: true }
   },
-  data() { /* 定义数据 */
+  data() {
     return {
       loginRules: {
         username: [{ validator: pmValidate.validateUsername }],
@@ -199,7 +177,7 @@ $light_gray: #eee;
   .title {
     font-size: 26px;
     color: $light_gray;
-    margin: 0px auto 40px auto;
+    margin: 0 auto 40px auto;
     text-align: center;
     font-weight: bold;
   }
