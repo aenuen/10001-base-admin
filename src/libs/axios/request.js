@@ -28,7 +28,7 @@ service.interceptors.request.use( // 请求拦截器
 
 service.interceptors.response.use(response => { // 响应拦截器
   const res = response.data
-  if (res.code !== 0) {
+  if (res.code !== 200) {
     const errMsg = res.msg || '请求失败！'
     Message({ message: errMsg, type: 'error', duration: 5 * 1000 })
     if (res.code === 2) {
@@ -47,7 +47,7 @@ service.interceptors.response.use(response => { // 响应拦截器
 }, error => { // 状态非200才会到这里来
   const { code, msg } = error.response.data
   Message({ message: msg || '', type: 'error', duration: 5 * 1000 })
-  if (code === -2) {
+  if (code === 599) {
     setTimeout(() => { location.reload() }, 1000)
   }
   return Promise.reject(error)

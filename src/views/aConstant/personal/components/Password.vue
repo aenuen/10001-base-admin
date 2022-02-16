@@ -54,8 +54,8 @@
 
 <script>
 import { pmValidate } from 'plugins-methods'
-import { fields } from './config'
-import { userPassword } from '@/api/user'
+import { fields } from '../modules/settings'
+import { userDispatch } from '@/api/user'
 import { CryptoJsEncode } from '@/libs/cryptojs'
 
 export default {
@@ -100,7 +100,7 @@ export default {
               const password = CryptoJsEncode(this.postForm.password)
               const passwordOne = CryptoJsEncode(this.postForm.passwordOne)
               const passwordTwo = CryptoJsEncode(this.postForm.passwordTwo)
-              userPassword({ id, password, passwordOne, passwordTwo }).then(res => {
+              userDispatch.use('password', { id, password, passwordOne, passwordTwo }).then(res => {
                 const { msg } = res
                 this.$message.success(msg)
                 this.submitLoading = false

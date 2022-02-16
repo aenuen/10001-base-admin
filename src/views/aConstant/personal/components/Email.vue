@@ -3,34 +3,18 @@
     <el-form ref="postForm" :model="postForm" :rules="rulesForm" style="margin:30px 50px">
       <el-row>
         <el-col>
-          <el-form-item :label="`我的${fields['email']}`" :label-width="labelWidth">
-            {{ `：${dataForm.email}` }}
-          </el-form-item>
+          <el-form-item :label="`我的${fields['email']}`" :label-width="labelWidth">{{ `：${dataForm.email}` }}</el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
           <el-form-item prop="newEmail" :label="`新的${fields['email']}`" :label-width="labelWidth">
-            <el-input
-              v-model.trim="postForm.newEmail"
-              :placeholder="`请输入新的${fields['email']}`"
-              maxlength="30"
-              style="width:300px"
-              clearable
-              @keyup.enter.native="submitEmail"
-            />
+            <el-input v-model.trim="postForm.newEmail" :placeholder="`请输入新的${fields['email']}`" maxlength="30" style="width:300px" clearable @keyup.enter.native="submitEmail" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item :label-width="labelWidth">
-        <el-button
-          v-loading="submitLoading"
-          type="primary"
-          :disabled="submitLoading"
-          @click="submitEmail"
-        >
-          编辑基本资料
-        </el-button>
+        <el-button v-loading="submitLoading" type="primary" :disabled="submitLoading" @click="submitEmail">编辑基本资料</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -38,8 +22,8 @@
 
 <script>
 import { pmValidate } from 'plugins-methods'
-import { fields } from './config'
-import { userEmail } from '@/api/user'
+import { fields } from '../modules/settings'
+import { userDispatch } from '@/api/user'
 
 export default {
   name: 'ViewsPersonalComponentsEmail', /* 组件名称 */
@@ -76,7 +60,7 @@ export default {
               this.$message.warning('电子邮箱一致，无需修改！')
               this.submitLoading = false
             } else {
-              userEmail(this.postForm).then(res => {
+              userDispatch.use(this.postForm).then(res => {
                 const { msg } = res
                 this.$message.success(msg)
                 this.submitLoading = false

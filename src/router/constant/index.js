@@ -16,11 +16,11 @@ export const constantRoutes = [
   httpRedirectRouter, // 网址重定向
   errorPage401Router, // 401页面
   errorPage404Router, // 404页面
+  { path: '*', redirect: '/404', hidden: true }, // 无页面=404页面
   personalRouter, // 个人
-  managerRouter, // 管理员
-  iconsRouter, // 图标
   homeRouter, // 首页
-  { path: '*', redirect: '/404', hidden: true } // 无页面=404页面
+  managerRouter, // 管理员
+  iconsRouter // 图标
 ]
 
 const createRouter = () => new Router({

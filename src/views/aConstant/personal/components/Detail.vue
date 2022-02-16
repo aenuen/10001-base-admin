@@ -104,9 +104,9 @@
 
 <script>
 import { pmValidate } from 'plugins-methods'
-import { fields, roleObject } from './config'
+import { fields, roleObject } from '../modules/settings'
 import { CryptoJsEncode } from '@/libs/cryptojs'
-import { userInsert, getInfo } from '@/api/user'
+import { userDispatch } from '@/api/user'
 
 export default {
   name: 'ViewsPersonalComponentsDetail', /* 组件名称 */
@@ -135,8 +135,6 @@ export default {
       }
     }
   },
-  computed: { /* 计算属性 */ },
-  watch: { /* 监控值变换 */ },
   mounted() { /* 渲染后运行 */
     const username = this.$route.params.username
     if (username) {
@@ -148,7 +146,7 @@ export default {
   },
   methods: { /* 函数及方法 */
     getData() {
-      getInfo({ username: this.username }).then(res => {
+      userDispatch.use('info', { username: this.username }).then(res => {
         const { data } = res
         this.postForm = data
         this.submitText = '编辑管理员'
@@ -164,7 +162,7 @@ export default {
         this.$refs.postForm.validate((valid, fields) => {
           if (valid) {
             const password = CryptoJsEncode(this.postForm.password)
-            userInsert({
+            userDispatch.use('create', {
               username: this.postForm.username,
               password,
               nickName: this.postForm.nickName,

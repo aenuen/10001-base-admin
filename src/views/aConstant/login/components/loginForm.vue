@@ -44,7 +44,7 @@ import { pmValidate } from 'plugins-methods'
 import { CryptoJsEncode } from '@/libs/cryptojs'
 
 export default {
-  name: 'ViewsLoginComponentsUsername',
+  name: 'LoginForm',
   props: {
     loginForm: { type: Object, required: true }
   },
@@ -62,9 +62,7 @@ export default {
       otherQuery: {}
     }
   },
-  computed: {/* 监控自定义的变量 */ },
-  watch: { /* 监控值变换 */ },
-  mounted() { /* 渲染后运行 */
+  mounted() {
     // 自动聚焦
     if (this.loginForm.username === '') {
       this.$refs.username.focus()
@@ -72,9 +70,7 @@ export default {
       this.$refs.password.focus()
     }
   },
-  created() { /* 创建后运行 */
-  },
-  methods: { /* 函数及方法 */
+  methods: {
     checkCapslock(e) {
       const { key } = e
       this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
@@ -95,7 +91,6 @@ export default {
             this.$emit('loginSubmit')
             this.loading = false
           }).catch(() => {
-            // this.$message.error('系统故障，请稍候再试…') // 系统故障，服务端未找到或未开启
             this.loading = false
           })
         } else {

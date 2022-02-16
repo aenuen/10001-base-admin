@@ -90,15 +90,13 @@ export default {
   mounted() { /* 渲染后运行 */
     this.action = `${this.baseUrl}${this.fileAction}`
   },
-  created() { /* 创建后运行 */
-  },
   methods: { /* 函数及方法 */
     beforeUpload(file) { // 上传前事件
       this.$emit('onBeforeUpload', file)
     },
     onSuccess(response, file, fileList) { // 成功事件
       const { msg, code, data } = response
-      if (code === 0) {
+      if (code === 200) {
         this.$message.success(msg)
         this.$emit('onSuccess', data)
       } else {

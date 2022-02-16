@@ -48,7 +48,7 @@ export default {
 <style lang="scss">
 .box-card-component {
   .el-card__header {
-    padding: 0px !important;
+    padding: 0 !important;
   }
 }
 </style>

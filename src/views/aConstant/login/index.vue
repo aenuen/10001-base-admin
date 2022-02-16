@@ -1,20 +1,17 @@
 <!--suppress ALL -->
 <template>
   <div class="login-container">
-    <username-login
-      :login-form="loginForm"
-      @loginSubmit="loginSubmit"
-    />
+    <loginForm :login-form="loginForm" @loginSubmit="loginSubmit" />
   </div>
 </template>
 
 <script>
-import usernameLogin from './components/loginForm'
+import loginForm from './components/loginForm'
 
 export default {
   name: 'ViewsLoginIndex',
   components: {
-    usernameLogin
+    loginForm
   },
   props: { /* 定义传值 */ },
   data() {

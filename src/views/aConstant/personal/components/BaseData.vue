@@ -25,11 +25,7 @@
         <el-row>
           <el-col :span="16">
             <el-form-item prop="avatarHttp" label="网址头像" :label-width="labelWidth">
-              <el-input
-                v-model.trim="postForm.avatarHttp"
-                clearable
-                placeholder="请输入网址头像"
-              />
+              <el-input v-model.trim="postForm.avatarHttp" clearable placeholder="请输入网址头像" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -49,12 +45,7 @@
         </el-form-item>
       </template>
       <el-form-item :label-width="labelWidth">
-        <el-button
-          v-loading="submitLoading"
-          type="primary"
-          :disabled="submitLoading"
-          @click="submit"
-        >
+        <el-button v-loading="submitLoading" type="primary" :disabled="submitLoading" @click="submit">
           编辑基本资料
         </el-button>
       </el-form-item>
@@ -64,8 +55,8 @@
 
 <script>
 import { pmValidate } from 'plugins-methods'
-import { fields } from './config'
-import { userBase } from '@/api/user'
+import { fields } from '../modules/settings'
+import { userDispatch } from '@/api/user'
 
 export default {
   name: 'ViewsPersonalComponentsBaseData', /* 组件名称 */
@@ -95,14 +86,9 @@ export default {
     userInfo() {
       this.postForm = Object.assign({}, this.userInfo)
     },
-    'postForm.avatarHttp':
-      function(value) {
-        this.disabled = !value
-      }
-  },
-  mounted() { /* 渲染后运行 */
-  },
-  created() { /* 创建后运行 */
+    'postForm.avatarHttp': function(value) {
+      this.disabled = !value
+    }
   },
   methods: { /* 函数及方法 */
     submit() {
@@ -110,7 +96,7 @@ export default {
         this.submitLoading = true
         this.$refs.postForm.validate((valid, fields) => {
           if (valid) {
-            userBase(this.postForm).then(res => {
+            userDispatch.use('base', this.postForm).then(res => {
               const { msg } = res
               this.$message.success(msg)
               this.submitLoading = false

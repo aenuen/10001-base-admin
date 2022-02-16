@@ -2,83 +2,19 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input
-        v-model="queryList.username"
-        :placeholder="`${fields['username']}`"
-        class="filter-item"
-        clearable
-        @keyup.enter.native="handleFilter"
-        @clear="handleFilter"
-        @select="handleFilter"
-      />
-      <el-input
-        v-model="queryList.nickName"
-        :placeholder="`${fields['nickName']}`"
-        class="filter-item"
-        clearable
-        @keyup.enter.native="handleFilter"
-        @clear="handleFilter"
-        @select="handleFilter"
-      />
-      <el-input
-        v-model="queryList.realName"
-        :placeholder="`${fields['realName']}`"
-        class="filter-item"
-        clearable
-        @keyup.enter.native="handleFilter"
-        @clear="handleFilter"
-        @select="handleFilter"
-      />
-      <el-input
-        v-model="queryList.email"
-        :placeholder="`${fields['email']}`"
-        class="filter-item"
-        clearable
-        @keyup.enter.native="handleFilter"
-        @clear="handleFilter"
-        @select="handleFilter"
-      />
-      <el-input
-        v-model="queryList.mobile"
-        :placeholder="`${fields['mobile']}`"
-        class="filter-item"
-        clearable
-        @keyup.enter.native="handleFilter"
-        @clear="handleFilter"
-        @select="handleFilter"
-      />
-      <el-select
-        v-model="queryList.role"
-        class="filter-item"
-        :placeholder="`${fields['role']}`"
-        clearable
-        @clear="handleFilter"
-        @change="handleFilter"
-      >
+      <el-input v-model="queryList.username" :placeholder="`${fields['username']}`" class="filter-item" clearable @keyup.enter.native="handleFilter" @clear="handleFilter" @select="handleFilter" />
+      <el-input v-model="queryList.nickName" :placeholder="`${fields['nickName']}`" class="filter-item" clearable @keyup.enter.native="handleFilter" @clear="handleFilter" @select="handleFilter" />
+      <el-input v-model="queryList.realName" :placeholder="`${fields['realName']}`" class="filter-item" clearable @keyup.enter.native="handleFilter" @clear="handleFilter" @select="handleFilter" />
+      <el-input v-model="queryList.email" :placeholder="`${fields['email']}`" class="filter-item" clearable @keyup.enter.native="handleFilter" @clear="handleFilter" @select="handleFilter" />
+      <el-input v-model="queryList.mobile" :placeholder="`${fields['mobile']}`" class="filter-item" clearable @keyup.enter.native="handleFilter" @clear="handleFilter" @select="handleFilter" />
+      <el-select v-model="queryList.role" class="filter-item" :placeholder="`${fields['role']}`" clearable @clear="handleFilter" @change="handleFilter">
         <el-option v-for="item in roleObject" :key="item['key']" :value="item['value']" :label="item['label']" />
       </el-select>
-      <el-select
-        v-model="queryList.isUse"
-        class="filter-item"
-        :placeholder="`${fields['isUse']}`"
-        clearable
-        @clear="handleFilter"
-        @change="handleFilter"
-      >
+      <el-select v-model="queryList.isUse" class="filter-item" :placeholder="`${fields['isUse']}`" clearable @clear="handleFilter" @change="handleFilter">
         <el-option v-for="(item,key) in isUseAry" :key="key" :value="item.value" :label="item.label" />
       </el-select>
     </div>
-    <el-table
-      :key="tableKey"
-      v-loading="tableLoading"
-      :data="tableList"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%"
-      :default-sort="tableSort"
-      @sort-change="sortChange"
-    >
+    <el-table :key="tableKey" v-loading="tableLoading" :data="tableList" border fit highlight-current-row style="width: 100%" :default-sort="tableSort" @sort-change="sortChange">
       <el-table-column :label="`${fields['id']}`" prop="id" sortable="custom" align="center" width="80" />
       <el-table-column :label="`${fields['work']}`" align="center" fixed="left" width="100">
         <template slot-scope="{row:{username}}">
@@ -102,30 +38,19 @@
       </el-table-column>
       <el-table-column :label="`${fields['isUse']}`" align="center">
         <template slot-scope="{row:{id}}">
-          <el-switch
-            v-model="tableIsUse[id]"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-            @change="isUseChange($event,id)"
-          />
+          <el-switch v-model="tableIsUse[id]" active-color="#13ce66" inactive-color="#ff4949" @change="isUseChange($event,id)" />
         </template>
       </el-table-column>
     </el-table>
-    <Pagination
-      v-show="tableListTotal>0"
-      :total="tableListTotal"
-      :page.sync="queryList.page"
-      :limit.sync="queryList.pageSize"
-      @pagination="refresh"
-    />
+    <Pagination v-show="tableListTotal>0" :total="tableListTotal" :page.sync="queryList.page" :limit.sync="queryList.pageSize" @pagination="refresh" />
   </div>
 </template>
 
 <script>
 import { isUseAry } from 'plugins-methods'
 import Pagination from '@/components/Pagination'
-import { fields, roleObject } from '../personal/components/config'
-import { userList, userState } from '@/api/user'
+import { fields, roleObject } from '../personal/modules/settings'
+import { userDispatch } from '@/api/user'
 
 export default {
   name: 'ViewsPersonalData', /* 组件名称 */
@@ -199,7 +124,7 @@ export default {
     },
     // 获取管理员列表失败
     getTableList() {
-      userList(this.queryList).then(res => {
+      userDispatch.use('list', this.queryList).then(res => {
         const { data, msg } = res
         const { list, count } = data
         this.$message.success(msg)
@@ -225,7 +150,7 @@ export default {
     // 使用状态改变
     isUseChange(event, id) {
       event = event ? '1' : '0'
-      userState({ id, event }).then(res => {
+      userDispatch.use('state', { id, event }).then(res => {
         const { data, msg } = res
         if (data === '1') {
           this.$message.success(msg)

@@ -56,13 +56,10 @@ export default {
   },
   created() {
     this.ifLawyer()
-    this.getInfo()
   },
   methods: {
     ifLawyer() {
       this.isLawyer = this.roles.includes('lawyer')
-    },
-    getInfo() {
     }
   }
 }

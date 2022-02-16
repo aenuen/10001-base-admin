@@ -38,8 +38,8 @@
 
 <script>
 import { pmValidate } from 'plugins-methods'
-import { fields } from './config'
-import { userMobile } from '@/api/user'
+import { fields } from '../modules/settings'
+import { userDispatch } from '@/api/user'
 
 export default {
   name: 'ViewsPersonalComponentsEmail', /* 组件名称 */
@@ -89,7 +89,7 @@ export default {
               this.$message.warning('手机号码一致，无需修改！')
               this.submitLoading = false
             } else {
-              userMobile(this.postForm).then(res => {
+              userDispatch.use(this.postForm).then(res => {
                 const { msg } = res
                 this.$message.success(msg)
                 this.submitLoading = false

@@ -10,7 +10,7 @@
               </div>
               <div class="box-center">
                 <el-avatar :size="100" :src="userInfo.avatar" @error="true">
-                  <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png">
+                  <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt>
                 </el-avatar>
               </div>
               <div class="box-center">
@@ -51,16 +51,11 @@ import BaseData from './components/BaseData'
 import Password from './components/Password'
 import Email from './components/Email'
 import Mobile from './components/Mobile'
-import { getInfo } from '@/api/user'
+import { userDispatch } from '@/api/user'
 
 export default {
   name: 'ViewsPersonalIndex',
-  components: {
-    BaseData,
-    Password,
-    Email,
-    Mobile
-  },
+  components: { BaseData, Password, Email, Mobile },
   data() {
     return {
       userInfo: {},
@@ -72,9 +67,10 @@ export default {
   },
   methods: {
     getUser() {
-      getInfo().then(res => {
-        const { data } = res
-        this.userInfo = data
+      userDispatch.use('info').then(({ code, data }) => {
+        if (code === 200) {
+          this.userInfo = data
+        }
       })
     }
   }
