@@ -1,4 +1,4 @@
-import { login, getInfo } from '@/api/user'
+import { userDispatch, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/libs/utils/token'
 import router, { resetRouter } from '@/router/constant'
 
@@ -32,7 +32,7 @@ const actions = {
   login({ commit }, userInfo) { // 用户登录
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      userDispatch.use('login', { username: username.trim(), password: password }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
         setToken(data.token)

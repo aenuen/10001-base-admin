@@ -1,9 +1,10 @@
+<!--suppress ALL -->
 <template>
   <div>
     <el-dropdown class="avatar-container hover-effect" trigger="click">
       <div class="avatar-wrapper" style="cursor: pointer">
         <el-avatar class="user-avatar" :size="35" :src="`${avatar}?imageView2/1/w/80/h/80`" @error="true">
-          <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt>
+          <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png">
         </el-avatar>
         <i class="el-icon-caret-bottom" />
       </div>
@@ -26,14 +27,25 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: '',
-  data() {
+  name: '', /* 组件名称 */
+  components: { /* 应用组件 */ },
+  filters: { /* 过滤器 */ },
+  directives: { /* 定义指令 */ },
+  props: { /* 定义传值 */ },
+  data() { /* 定义数据 */
     return {}
   },
-  computed: {
-    ...mapGetters(['avatar'])
+  computed: { /* 监控自定义的变量 */
+    ...mapGetters([
+      'avatar'
+    ])
   },
-  methods: {
+  watch: { /* 监控值变换 */ },
+  mounted() { /* 渲染后运行 */
+  },
+  created() { /* 创建后运行 */
+  },
+  methods: { /* 函数及方法 */
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)

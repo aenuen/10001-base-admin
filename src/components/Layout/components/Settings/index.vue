@@ -6,18 +6,22 @@
         <span>选择颜色修改主题颜色</span>
         <theme-picker style="float: right;height: 26px;margin: -3px 8px 0 0;" @change="themeChange" />
       </div>
+
       <div class="drawer-item">
         <span>显示及隐藏标记视图</span>
         <el-switch v-model="tagsView" class="drawer-switch" />
       </div>
+
       <div class="drawer-item">
         <span>头部是否跟飘浮随滚动</span>
         <el-switch v-model="fixedHeader" class="drawer-switch" />
       </div>
+
       <div class="drawer-item">
         <span>显示及隐藏侧边栏Logo</span>
         <el-switch v-model="sidebarLogo" class="drawer-switch" />
       </div>
+
     </div>
   </div>
 </template>

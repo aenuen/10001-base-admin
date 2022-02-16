@@ -1,5 +1,3 @@
-// noinspection JSUnresolvedFunction,JSCheckFunctionSignatures
-
 import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
@@ -13,7 +11,13 @@ const service = axios.create({ // 创建一个axios实例
 
 service.interceptors.request.use( // 请求拦截器 request interceptor
   config => {
-    store.getters.token && (config.headers['authorization'] = `Bearer ${getToken()}`)
+    if (store.getters.token) {
+      config.headers = {
+        'Authorization': `Bearer ${getToken()}`,
+        'Content-Type': 'application/json',
+        'cached-control': 'no-cache'
+      }
+    }
     return config
   },
   error => {

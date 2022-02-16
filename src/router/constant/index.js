@@ -6,9 +6,6 @@ Vue.use(Router)
 import homeRouter from './home'
 import { loginRouter, httpRedirectRouter, authRedirectRouter } from '@/router/constant/login'
 import { errorPage401Router, errorPage404Router } from '@/router/constant/errorPage'
-import personalRouter from '@/router/constant/personal'
-import managerRouter from '@/router/constant/manager'
-import iconsRouter from '@/router/constant/icons'
 
 export const constantRoutes = [
   loginRouter, // 登录
@@ -16,11 +13,7 @@ export const constantRoutes = [
   httpRedirectRouter, // 网址重定向
   errorPage401Router, // 401页面
   errorPage404Router, // 404页面
-  homeRouter, // 首页
-  personalRouter,
-  managerRouter,
-  iconsRouter,
-  { path: '*', redirect: '/404', hidden: true } // 无页面=404页面
+  homeRouter // 首页
 ]
 
 const createRouter = () => new Router({

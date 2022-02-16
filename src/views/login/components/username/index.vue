@@ -57,7 +57,7 @@
 
 <script>
 import { pmValidate } from 'plugins-methods'
-import { CryptoJsEncode } from '@/libs/utils/cryptojs'
+import { CryptoJsEncode } from '@/libs/cryptojs'
 
 export default {
   name: 'ViewsLoginComponentsUsername', /* 组件名称 */

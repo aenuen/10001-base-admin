@@ -17,7 +17,7 @@
     "rm:node": "rimraf node_modules"
   },
   "dependencies": {
-    "axios": "0.25.0",
+    "axios": "0.26.0",
     "clipboard": "2.0.10",
     "codemirror": "5.65.1",
     "core-js": "3.21.0",
@@ -36,6 +36,7 @@
     "path-to-regexp": "6.2.0",
     "plugins-methods": "^1.1.21",
     "print-js": "^1.6.0",
+    "qs": "^6.10.3",
     "screenfull": "4.2.0",
     "script-loader": "0.7.2",
     "sortablejs": "1.14.0",

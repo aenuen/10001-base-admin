@@ -5,7 +5,7 @@
     </div>
     <div style="position:relative;">
       <pan-thumb :image="avatar" class="panThumb" />
-      <mall-ki class-name="mall-ki-text" :text="`欢迎回来，${realName}`" />
+      <mallki class-name="mallki-text" :text="`欢迎回来，${realName}`" />
       <div style="padding-top:50px;" class="progress-item">
         <el-button type="primary" :style="{width:buttonWidth}" class="el-icon-edit" @click="gotoCaseCreate">前往案件录入</el-button>
         <el-button type="primary" :style="{width:buttonWidth}" class="el-icon-finished" @click="gotoCaseList">前往案件列表</el-button>
@@ -17,10 +17,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import PanThumb from '@/components/PanThumb'
-import MallKi from '@/components/TextHoverEffect/Mallki'
+import Mallki from '@/components/TextHoverEffect/Mallki'
 
 export default {
-  components: { PanThumb, MallKi },
+  components: { PanThumb, Mallki },
   filters: {},
   data() {
     return {
@@ -28,7 +28,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['realName', 'avatar', 'roles'])
+    ...mapGetters([
+      'realName',
+      'avatar',
+      'roles'
+    ])
   },
   methods: {
     gotoCaseCreate() {
@@ -44,7 +48,7 @@ export default {
 <style lang="scss">
 .box-card-component {
   .el-card__header {
-    padding: 0 !important;
+    padding: 0px !important;
   }
 }
 </style>
@@ -66,10 +70,10 @@ export default {
     }
   }
 
-  .mall-ki-text {
+  .mallki-text {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 0px;
+    right: 0px;
     font-size: 20px;
     font-weight: bold;
   }
@@ -80,7 +84,7 @@ export default {
     width: 70px !important;
     position: absolute !important;
     top: -45px;
-    left: 0;
+    left: 0px;
     border: 5px solid #ffffff;
     background-color: #fff;
     margin: auto;
@@ -97,7 +101,7 @@ export default {
   }
 
   @media only screen and (max-width: 1510px) {
-    .mall-ki-text {
+    .mallki-text {
       display: none;
     }
   }

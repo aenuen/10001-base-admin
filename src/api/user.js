@@ -1,10 +1,19 @@
-import request from '@/libs/utils/axios/request'
+import request from '@/libs/axios/request'
+import Dispatch from '@/libs/axios/dispatch'
+
+export const userDispatch = new Dispatch({
+  login: ['/user/login', 'post'] // 更新密码
+})
 
 export const login = data => request({ url: '/user/login', method: 'post', data })
 
 export const getInfo = () => request({ url: '/user/info', method: 'get' })
 
 export const userList = params => request({ url: '/user/list', method: 'get', params })
+
+export const userLawyer = () => request({ url: '/user/lawyer', method: 'get' })
+
+export const logout = () => request({ url: '/user/logout', method: 'post' })
 
 export const userBase = data => request({ url: '/user/base', method: 'post', data })
 

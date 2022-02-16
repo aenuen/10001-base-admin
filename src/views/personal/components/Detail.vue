@@ -105,7 +105,7 @@
 <script>
 import { pmValidate } from 'plugins-methods'
 import { fields, roleObject } from './config'
-import { CryptoJsEncode } from '@/libs/utils/cryptojs'
+import { CryptoJsEncode } from '@/libs/cryptojs'
 import { userInsert, getInfo } from '@/api/user'
 
 export default {

@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import clipboard from '@/libs/utils/clipboard'
+import clipboard from '@/libs/clipboard'
 import svgIcons from '@/libs/svgIcon/config/svg-icons'
 import elementIcons from '@/libs/svgIcon/config/element-icons'
 

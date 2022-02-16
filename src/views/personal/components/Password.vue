@@ -56,7 +56,7 @@
 import { pmValidate } from 'plugins-methods'
 import { fields } from './config'
 import { userPassword } from '@/api/user'
-import { CryptoJsEncode } from '@/libs/utils/cryptojs'
+import { CryptoJsEncode } from '@/libs/cryptojs'
 
 export default {
   name: 'ViewsPersonalComponentsPassword', /* 组件名称 */

@@ -1,0 +1,18 @@
+import request from '@/libs/axios/request'
+
+export const caseInsert = data => request({ url: '/case/insert', method: 'post', data: data })
+export const caseContinue = data => request({ url: '/case/continue', method: 'post', data: data })
+export const caseData = params => request({ url: '/case/data', method: 'get', params })
+export const caseUpdate = data => request({ url: '/case/update', method: 'post', data })
+export const caseCheck = data => request({ url: '/case/check', method: 'post', data })
+export const caseList = params => request({ url: '/case/list', methods: 'get', params })
+export const caseCaseName = params => request({ url: '/case/caseName', methods: 'get', params })
+export const caseMonth = params => request({ url: '/case/month', methods: 'get', params })
+export const caseMonthCase = params => request({ url: '/case/monthCase', methods: 'get', params })
+export const casePaySum = params => request({ url: '/case/paySum', methods: 'get', params })
+export const caseAddPay = data => request({ url: '/case/addPay', method: 'post', data: data })
+export const caseIsUse = data => request({ url: '/case/isUse', method: 'post', data: data })
+export const caseInvoice = data => request({ url: '/case/invoice', method: 'post', data: data })
+export const caseDelivery = (data) => request({ url: '/case/delivery', method: 'post', data })
+export const caseHomeTotal = (data) => request({ url: '/case/homeTotal', method: 'post', data })
+export const caseEnter = data => request({ url: '/case/enter', method: 'post', data })
