@@ -4,8 +4,7 @@ import store from '@/store'
 import settings from '@/settings'
 
 const { errorLog: needErrorLog } = settings
-
-function checkNeed() {
+const checkNeed = () => {
   const env = process.env.NODE_ENV
   if (pmType.typeString(needErrorLog)) {
     return env === needErrorLog
