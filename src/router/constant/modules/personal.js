@@ -1,4 +1,4 @@
-import Layout from '@/components/Layout'
+import Layout from '@/libs/Layout'
 // 简况
 const personalRouter = {
   path: '/personal', name: 'personal', component: Layout, redirect: '/personal/data',

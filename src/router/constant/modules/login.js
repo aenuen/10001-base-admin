@@ -1,4 +1,4 @@
-import Layout from '@/components/Layout'
+import Layout from '@/libs/Layout'
 
 export const loginRouter = {
   path: '/login',

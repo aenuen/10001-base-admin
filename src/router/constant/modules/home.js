@@ -1,4 +1,4 @@
-import Layout from '@/components/Layout'
+import Layout from '@/libs/Layout'
 // 首页
 const homeRouter = {
   path: '/', component: Layout, redirect: '/home', children: [
