@@ -3,7 +3,7 @@
   <div>
     <el-dropdown class="avatar-container hover-effect" trigger="click">
       <div class="avatar-wrapper" style="cursor: pointer">
-        <el-avatar class="user-avatar" :size="35" :src="`${avatar}?imageView2/1/w/80/h/80`" @error="true">
+        <el-avatar class="user-avatar" :size="35" :src="`${avatar}`" @error="true">
           <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png">
         </el-avatar>
         <i class="el-icon-caret-bottom" />

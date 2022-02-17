@@ -15,9 +15,11 @@ export default {
       this.updateId = editId
       this.getDetail()
     }
+    this.startAction()
   },
   methods: {
-    getDetail() {}
+    getDetail() {},
+    startAction() {}
   }
 }
 </script>

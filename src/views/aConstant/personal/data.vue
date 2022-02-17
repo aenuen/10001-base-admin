@@ -1,3 +1,4 @@
+<!--suppress JSUnresolvedVariable -->
 <template>
   <div class="app-container">
     <div v-if="userInfo">
@@ -9,7 +10,7 @@
                 <span>个人资料</span>
               </div>
               <div class="box-center">
-                <el-avatar :size="100" :src="userInfo.avatar" @error="true">
+                <el-avatar :size="100" :src="avatar" @error="true">
                   <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt>
                 </el-avatar>
               </div>
@@ -25,16 +26,14 @@
             <div slot="header" class="clearfix">
               <span>编辑资料</span>
             </div>
-            <el-tabs v-model="activeTab" @tab-click="handleClick">
+            <el-tabs v-model="queryList.activeTab" @tab-click="tabsClick">
               <el-tab-pane label="登录密码" name="password">
                 <password :user-info="userInfo" />
               </el-tab-pane>
               <el-tab-pane label="基本资料" name="base">
                 <base-data :user-info="userInfo" />
               </el-tab-pane>
-              <el-tab-pane label="更换头像" name="avatar">
-                <avatar :user-info="userInfo" />
-              </el-tab-pane>
+              <el-tab-pane label="更换头像" name="avatar"><avatar /></el-tab-pane>
               <el-tab-pane label="电子邮箱" name="email">
                 <email :user-info="userInfo" />
               </el-tab-pane>
@@ -50,21 +49,26 @@
 </template>
 
 <script>
+import ListMixin from '@/libs/Mixins/ListMixin'
 import Password from './components/Password'
 import BaseData from './components/BaseData'
 import Avatar from './components/Avatar'
 import Email from './components/Email'
 import Mobile from './components/Mobile'
+import { mapGetters } from 'vuex'
 import { userDispatch } from '@/api/user'
 
 export default {
   name: 'ViewsPersonalIndex',
   components: { Password, BaseData, Avatar, Email, Mobile },
+  mixins: [ListMixin],
   data() {
     return {
-      userInfo: {},
-      activeTab: 'password'
+      userInfo: {}
     }
+  },
+  computed: {
+    ...mapGetters(['avatar'])
   },
   created() {
     this.getUser()
@@ -74,12 +78,19 @@ export default {
       userDispatch.use('info').then(({ code, data }) => {
         if (code === 200) {
           this.userInfo = data
+        } else {
+          this.$message.error('获取用户信息失败')
         }
       })
     },
-    handleClick(tab) {
-      const query = { tab: tab.name }
-      this.$router.push({ path: this.$route.path, query })
+    setData() {
+      return {
+        activeTab: 'password'
+      }
+    },
+    tabsClick(tabs) {
+      this.queryList.activeTab = tabs.name
+      this.refresh()
     }
   }
 }

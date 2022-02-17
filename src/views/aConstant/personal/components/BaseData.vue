@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import { fields } from '../modules/settings'
+import { fields } from '../modules/fields'
+import { BaseDataRule as rulesForm } from '../modules/rules'
 import DetailMixin from '@/libs/Mixins/DetailMixin'
 import { pmValidate } from 'plugins-methods'
 import { userDispatch } from '@/api/user'
@@ -36,15 +37,12 @@ export default {
   data() {
     return {
       fields,
-      rulesForm: {
-        nickName: [{ validator: (rule, value, callback) => pmValidate.validateRequire(rule, value, callback, fields.nickName, 3, 20) }],
-        realName: [{ validator: (rule, value, callback) => pmValidate.validateAllCn(rule, value, callback, fields.realName, 2, 20) }]
-      }
+      rulesForm
     }
   },
   watch: {
     userInfo(value) {
-      this.postForm = value
+      this.postForm = Object.assign(this.postForm, value)
     }
   },
   methods: {
@@ -73,12 +71,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.avatar_wrap {
-  width: 100%;
-  overflow: auto;
-  div {
-    margin:10px 10px 0 0;
-    float: left;
-  }
-}
 </style>
