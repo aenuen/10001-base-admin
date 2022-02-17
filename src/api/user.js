@@ -8,6 +8,7 @@ export const userDispatch = new Dispatch({
   create: ['/user/insert', 'post'], // 新建用户
   state: ['/user/state', 'post'], // 新建用户
   base: ['/user/base', 'post'], // 修改基本信息
+  avatar: ['/user/avatar', 'post'], // 更换头像
   email: ['/user/email', 'post'], // 修改电子邮件
   mobile: ['/user/mobile', 'post'], // 修改手机号码
   password: ['/user/password', 'post'] // 修改手机号码

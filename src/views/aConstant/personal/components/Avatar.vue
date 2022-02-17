@@ -1,6 +1,10 @@
 <template>
   <div class="app-container">
     <el-form ref="postForm" :model="postForm" :rules="rulesForm">
+      <el-form-item :label-width="labelWidth">
+        <el-button type="default" class="el-icon-upload" @click="toggleShow">上传头像</el-button>
+        <el-button type="default" class="el-icon-camera">历史头像</el-button>
+      </el-form-item>
       <el-row>
         <el-col>
           <el-form-item prop="avatar" :label="`系统${fields.avatar}`" :label-width="labelWidth">
@@ -33,17 +37,20 @@ export default {
   data() {
     return {
       fields,
-      avatarList: []
+      avatarList: [],
+      show: false
     }
   },
   computed: {
     ...mapGetters(['avatar'])
   },
   mounted() {
-    this.$store.commit('user/SET_AVATAR', 'http://video.www:20323/upload/avatar/constant/4.jpg')
     this.getAvatarList()
   },
   methods: {
+    toggleShow() {
+      this.show = !this.show
+    },
     getAvatarList() {
       userDispatch.use('avatarList').then(({ code, data }) => {
         if (code === 200) {
@@ -55,7 +62,6 @@ export default {
       })
     },
     submitAction() {
-      this.avatar = 'http://video.www:20323/upload/avatar/constant/4.jpg'
       if (!this.submitLoading) {
         this.submitLoading = true
         this.$refs.postForm.validate((valid, fields) => {
@@ -70,9 +76,11 @@ export default {
               userDispatch.use('avatar', this.postForm).then(({ code, msg }) => {
                 if (code === 200) {
                   this.$message.success(msg)
+                  this.$store.commit('user/SET_AVATAR', this.postForm.avatar)
                 } else {
                   this.$message.error(msg)
                 }
+                this.submitLoading = false
               })
             }
           } else {
@@ -82,6 +90,20 @@ export default {
           }
         })
       }
+    },
+    cropSuccess(imgDataUrl, field) {
+      console.log('-------- crop success --------')
+      this.imgDataUrl = imgDataUrl
+    },
+    cropUploadSuccess(jsonData, field) {
+      console.log('-------- upload success --------')
+      console.log(jsonData)
+      console.log('field: ' + field)
+    },
+    cropUploadFail(status, field) {
+      console.log('-------- upload fail --------')
+      console.log(status)
+      console.log('field: ' + field)
     }
   }
 }
