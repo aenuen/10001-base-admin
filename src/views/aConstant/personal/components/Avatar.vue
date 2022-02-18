@@ -2,8 +2,8 @@
   <div class="app-container">
     <el-form ref="postForm" :model="postForm" :rules="rulesForm">
       <el-form-item :label-width="labelWidth">
-        <el-button type="default" class="el-icon-upload" @click="toggleShow">上传头像</el-button>
-        <el-button type="default" class="el-icon-camera">历史头像</el-button>
+        <el-button :type="cutterControl?'primary':'default'" class="el-icon-upload" @click="cutterToggle">上传头像</el-button>
+        <el-button :type="historyControl?'primary':'default'" class="el-icon-camera" @click="historyToggle">历史上传</el-button>
       </el-form-item>
       <el-row>
         <el-col>
@@ -22,6 +22,12 @@
         <el-button :loading="submitLoading" :disabled="submitLoading" type="primary" @click="submitAction">使用选中的系统头像</el-button>
       </el-form-item>
     </el-form>
+    <el-dialog v-if="cutterControl" title="上传头像" width="815px" :visible.sync="cutterControl">
+      <ImgCutter @onCutSuccess="onCutSuccess" />
+    </el-dialog>
+    <el-dialog v-if="historyControl" title="历史上传" width="815px" :visible.sync="historyControl">
+      <AvatarHistory :list="historyList" @onUseAvatar="onUseAvatar" @onDelAvatar="onDelAvatar" />
+    </el-dialog>
   </div>
 </template>
 
@@ -29,16 +35,22 @@
 import { fields } from '../modules/fields'
 import DetailMixin from '@/libs/Mixins/DetailMixin'
 import { pmValidate } from 'plugins-methods'
+import ImgCutter from '@/components/imgCutter'
+import AvatarHistory from './AvatarHistory'
 import { mapGetters } from 'vuex'
 import { userDispatch } from '@/api/user'
 export default {
   name: 'PersonalAvatar',
+  components: { ImgCutter, AvatarHistory },
   mixins: [DetailMixin],
   data() {
     return {
       fields,
       avatarList: [],
-      show: false
+      cutterControl: false,
+      historyList: [],
+      historyLoad: false,
+      historyControl: false
     }
   },
   computed: {
@@ -48,18 +60,49 @@ export default {
     this.getAvatarList()
   },
   methods: {
-    toggleShow() {
-      this.show = !this.show
+    cutterToggle() {
+      this.cutterControl = !this.cutterControl
+    },
+    onCutSuccess(res) {
+      userDispatch.use('avatarUpload', { avatar: res.dataURL }).then(({ code, data, msg }) => {
+        if (code === 200) {
+          this.historyList.push(data)
+          this.$store.commit('user/SET_AVATAR', data.avatar)
+          this.$message.success(msg)
+        } else {
+          this.$message.error(msg)
+        }
+      })
+      this.cutterToggle()
+    },
+    historyToggle() {
+      this.historyControl = !this.historyControl
+      if (this.historyControl && this.historyLoad === false) {
+        this.history()
+      }
+    },
+    history() {
+      userDispatch.use('avatarHistory').then(({ code, data }) => {
+        if (code === 200) {
+          this.historyList = data
+          this.historyLoad = true
+        }
+      })
     },
     getAvatarList() {
       userDispatch.use('avatarList').then(({ code, data }) => {
         if (code === 200) {
-          if (!data.includes(this.avatar)) {
-            data.unshift(this.avatar)
-          }
           this.avatarList = data
         }
       })
+    },
+    onUseAvatar(avatar) {
+      this.postForm.avatar = avatar
+      this.historyControl = false
+      this.submitAction()
+    },
+    onDelAvatar() {
+      this.history()
     },
     submitAction() {
       if (!this.submitLoading) {
@@ -90,20 +133,6 @@ export default {
           }
         })
       }
-    },
-    cropSuccess(imgDataUrl, field) {
-      console.log('-------- crop success --------')
-      this.imgDataUrl = imgDataUrl
-    },
-    cropUploadSuccess(jsonData, field) {
-      console.log('-------- upload success --------')
-      console.log(jsonData)
-      console.log('field: ' + field)
-    },
-    cropUploadFail(status, field) {
-      console.log('-------- upload fail --------')
-      console.log(status)
-      console.log('field: ' + field)
     }
   }
 }

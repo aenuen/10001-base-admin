@@ -10,10 +10,26 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2022-02-17 17:50:18
+Date: 2022-02-18 15:58:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for aa_admin_avatar
+-- ----------------------------
+DROP TABLE IF EXISTS `aa_admin_avatar`;
+CREATE TABLE `aa_admin_avatar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT NULL,
+  `avatar` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of aa_admin_avatar
+-- ----------------------------
+INSERT INTO `aa_admin_avatar` VALUES ('28', '1', '/user/c4ca4238a0b923820dcc509a6f75849b/1eef7f70-658e-4c1f-bedd-9c98a5bbe4e6.jpg');
 
 -- ----------------------------
 -- Table structure for aa_admin_user
@@ -37,7 +53,7 @@ CREATE TABLE `aa_admin_user` (
 -- ----------------------------
 -- Records of aa_admin_user
 -- ----------------------------
-INSERT INTO `aa_admin_user` VALUES ('1', '1', 'admin', 'e2b183463c56aaafee6825d2acb0a69e', 'aenuen', '石志辉', 'aenuen@qq.com', '13055297726', '/constant/2.jpg', 'admin');
+INSERT INTO `aa_admin_user` VALUES ('1', '1', 'admin', 'e2b183463c56aaafee6825d2acb0a69e', 'aenuen', '石志辉', 'aenuen@qq.com', '13055297726', '/user/c4ca4238a0b923820dcc509a6f75849b/1eef7f70-658e-4c1f-bedd-9c98a5bbe4e6.jpg', 'admin');
 INSERT INTO `aa_admin_user` VALUES ('2', '1', 'nickach', '1d819b72308b99e88343f63aef8848ff', 'nick', '吴晓岩', 'nickach@163.com', '15950996098', '/constant/1.jpg', 'admin');
 INSERT INTO `aa_admin_user` VALUES ('3', '1', 'xuyongyun', '356ef4100dabfa157604e66520605223', 'xiaoxu', '许永云', 'xyy205@126.com', '13328277245', '/constant/1.jpg', 'lawyer');
 INSERT INTO `aa_admin_user` VALUES ('4', '1', 'guojinbiao', '7f26b8bb416f57380363f90d0b52fd94', '123456', '郭锦标', 'gjb@qq.com', '13877777777', '/constant/1.jpg', 'lawyer');

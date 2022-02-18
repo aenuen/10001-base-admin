@@ -14,6 +14,13 @@ const personalRouter = {
         title: '个人资料'
       },
       hidden: true
+    },
+    {
+      path: 'image', name: 'personalImage', component: () => import('@/components/imgCutter'),
+      meta: {
+        title: '图片'
+      },
+      hidden: true
     }
   ]
 }
