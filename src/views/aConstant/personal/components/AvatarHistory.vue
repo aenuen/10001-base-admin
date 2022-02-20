@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { userDispatch } from '@/api/user'
 export default {
   name: 'AvatarHistory',
@@ -31,13 +32,17 @@ export default {
       avatar: ''
     }
   },
+  computed: {
+    ...mapGetters(['aid'])
+  },
   methods: {
     useAvatar(avatar) {
       this.$emit('onUseAvatar', avatar)
     },
     delAvatar(id) {
       this.$confirm('删除后将无法恢复，是否确定删除').then(() => {
-        userDispatch.use('avatarDelete', { id }).then(({ code, msg }) => {
+        const data = { adminId: this.aid, avatarId: id }
+        userDispatch.use('avatarDelete', data).then(({ code, msg }) => {
           if (code === 200) {
             this.$message.success(msg)
             this.$emit('onDelAvatar')

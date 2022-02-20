@@ -3,22 +3,38 @@ import { getToken, setToken, removeToken } from '@/libs/utils/token'
 import router, { resetRouter } from '@/router/constant'
 
 const state = {
+  aid: '',
   token: getToken(),
   realName: '',
+  petName: '',
+  email: '',
+  mobile: '',
   avatar: '',
   introduction: '',
   roles: []
 }
 
 const mutations = {
+  SET_AID: (state, aid) => {
+    state.aid = aid
+  },
   SET_TOKEN: (state, token) => {
     state.token = token
   },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
   },
-  SET_NAME: (state, realName) => {
+  SET_RealNAME: (state, realName) => {
     state.realName = realName
+  },
+  SET_PetNAME: (state, petName) => {
+    state.petName = petName
+  },
+  SET_EMAIL: (state, email) => {
+    state.email = email
+  },
+  SET_MOBILE: (state, mobile) => {
+    state.mobile = mobile
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
@@ -52,12 +68,16 @@ const actions = {
       userDispatch.use('info', state.token).then(({ code, data }) => {
         if (code === 200) {
           data || reject('验证失败，请重新登录。')
-          const { roles, realName, avatar, introduction } = data
+          const { roles, id, petName, realName, email, mobile, avatar, introduction } = data
           if (!roles || roles.length <= 0) {
             reject('您的用户没有任务的权限')
           }
           commit('SET_ROLES', roles)
-          commit('SET_NAME', realName)
+          commit('SET_AID', id)
+          commit('SET_PetNAME', petName)
+          commit('SET_RealNAME', realName)
+          commit('SET_EMAIL', email)
+          commit('SET_MOBILE', mobile)
           commit('SET_AVATAR', avatar)
           commit('SET_INTRODUCTION', introduction)
           resolve(data)

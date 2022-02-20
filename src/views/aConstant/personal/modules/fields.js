@@ -3,7 +3,7 @@ export const fields = {
   work: '操作',
   isUse: '使用状态',
   username: '用户名',
-  nickName: '昵称',
+  petName: '昵称',
   realName: '真实姓名',
   avatar: '头像',
   password: '密码',

@@ -1,7 +1,7 @@
 <!--suppress JSUnresolvedVariable -->
 <template>
   <div class="app-container">
-    <div v-if="userInfo">
+    <div>
       <el-row :gutter="20">
         <el-col :span="6">
           <div class="user-data">
@@ -15,8 +15,8 @@
                 </el-avatar>
               </div>
               <div class="box-center">
-                <div class="user-name">{{ userInfo.realName }}</div>
-                <div class="user-role text-muted">{{ userInfo.role }}</div>
+                <div class="user-name">{{ petName }}</div>
+                <div class="user-role text-muted">{{ rolesCn }}</div>
               </div>
             </el-card>
           </div>
@@ -27,19 +27,11 @@
               <span>编辑资料</span>
             </div>
             <el-tabs v-model="queryList.activeTab" @tab-click="tabsClick">
-              <el-tab-pane label="登录密码" name="password">
-                <password :user-info="userInfo" />
-              </el-tab-pane>
-              <el-tab-pane label="基本资料" name="base">
-                <base-data :user-info="userInfo" />
-              </el-tab-pane>
+              <el-tab-pane label="登录密码" name="password"><password /></el-tab-pane>
+              <el-tab-pane label="基本资料" name="base"><base-data /></el-tab-pane>
               <el-tab-pane label="更换头像" name="avatar"><avatar /></el-tab-pane>
-              <el-tab-pane label="电子邮箱" name="email">
-                <email :user-info="userInfo" />
-              </el-tab-pane>
-              <el-tab-pane label="手机号码" name="mobile">
-                <mobile :user-info="userInfo" />
-              </el-tab-pane>
+              <el-tab-pane label="电子邮箱" name="email"><email /></el-tab-pane>
+              <el-tab-pane label="手机号码" name="mobile"><mobile /></el-tab-pane>
             </el-tabs>
           </el-card>
         </el-col>
@@ -49,6 +41,7 @@
 </template>
 
 <script>
+import { roles } from './modules/roles'
 import ListMixin from '@/libs/Mixins/ListMixin'
 import Password from './components/Password'
 import BaseData from './components/BaseData'
@@ -56,7 +49,6 @@ import Avatar from './components/Avatar'
 import Email from './components/Email'
 import Mobile from './components/Mobile'
 import { mapGetters } from 'vuex'
-import { userDispatch } from '@/api/user'
 
 export default {
   name: 'ViewsPersonalIndex',
@@ -64,25 +56,20 @@ export default {
   mixins: [ListMixin],
   data() {
     return {
-      userInfo: {}
+      rolesCn: ''
     }
   },
   computed: {
-    ...mapGetters(['avatar'])
+    ...mapGetters(['roles', 'petName', 'avatar'])
   },
   created() {
-    this.getUser()
+    const ary = []
+    this.roles.forEach((value) => {
+      ary.push(roles[value].label)
+    })
+    this.rolesCn = ary.join(',')
   },
   methods: {
-    getUser() {
-      userDispatch.use('info').then(({ code, data }) => {
-        if (code === 200) {
-          this.userInfo = data
-        } else {
-          this.$message.error('获取用户信息失败')
-        }
-      })
-    },
     setData() {
       return {
         activeTab: 'password'

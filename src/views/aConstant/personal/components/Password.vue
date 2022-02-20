@@ -23,7 +23,7 @@
         </el-col>
       </el-row>
       <el-form-item :label-width="labelWidth">
-        <el-button :loading="submitLoading" type="primary" :disabled="submitLoading" @click="submitPassword">修改密码</el-button>
+        <el-button :loading="submitLoading" type="primary" :disabled="submitLoading" @click="submitPassword">修改登录密码</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -33,15 +33,12 @@
 import { fields } from '../modules/fields'
 import { PasswordRule as rulesForm } from '../modules/rules'
 import DetailMixin from '@/libs/Mixins/DetailMixin'
-import { pmValidate } from 'plugins-methods'
 import { CryptoJsEncode } from '@/libs/cryptojs'
+import { mapGetters } from 'vuex'
 import { userDispatch } from '@/api/user'
 export default {
   name: 'PersonalPassword',
   mixins: [DetailMixin],
-  props: {
-    userInfo: { type: Object, default: () => {} }
-  },
   data() {
     return {
       fields,
@@ -53,10 +50,8 @@ export default {
       }
     }
   },
-  watch: {
-    userInfo(value) {
-      this.postForm = Object.assign(this.postForm, value)
-    }
+  computed: {
+    ...mapGetters(['aid'])
   },
   methods: {
     submitPassword() {
@@ -73,7 +68,7 @@ export default {
               this.$refs.passwordRep.focus()
               this.submitLoading = false
             } else {
-              const id = this.userInfo.id
+              const id = this.aid
               const passwordOld = CryptoJsEncode(this.postForm.passwordOld)
               const passwordNew = CryptoJsEncode(this.postForm.passwordNew)
               const passwordRep = CryptoJsEncode(this.postForm.passwordRep)
@@ -92,8 +87,7 @@ export default {
               })
             }
           } else {
-            this.$message.error(pmValidate.validateErrMsg(fields))
-            this.submitLoading = false
+            this.validateErrHandle(fields)
           }
         })
       }

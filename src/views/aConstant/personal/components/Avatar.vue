@@ -34,7 +34,6 @@
 <script>
 import { fields } from '../modules/fields'
 import DetailMixin from '@/libs/Mixins/DetailMixin'
-import { pmValidate } from 'plugins-methods'
 import ImgCutter from '@/components/imgCutter'
 import AvatarHistory from './AvatarHistory'
 import { mapGetters } from 'vuex'
@@ -54,7 +53,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['avatar'])
+    ...mapGetters(['aid', 'avatar'])
   },
   mounted() {
     this.getAvatarList()
@@ -64,7 +63,9 @@ export default {
       this.cutterControl = !this.cutterControl
     },
     onCutSuccess(res) {
-      userDispatch.use('avatarUpload', { avatar: res.dataURL }).then(({ code, data, msg }) => {
+      userDispatch.use('avatarUpload', {
+        id: this.aid, avatar: res.dataURL
+      }).then(({ code, data, msg }) => {
         if (code === 200) {
           this.historyList.push(data)
           this.$store.commit('user/SET_AVATAR', data.avatar)
@@ -82,7 +83,9 @@ export default {
       }
     },
     history() {
-      userDispatch.use('avatarHistory').then(({ code, data }) => {
+      userDispatch.use('avatarHistory', {
+        id: this.aid
+      }).then(({ code, data }) => {
         if (code === 200) {
           this.historyList = data
           this.historyLoad = true
@@ -116,6 +119,7 @@ export default {
               this.$message.error('已经在使用此头像了，无须更换')
               this.submitLoading = false
             } else {
+              this.postForm.id = this.aid
               userDispatch.use('avatar', this.postForm).then(({ code, msg }) => {
                 if (code === 200) {
                   this.$message.success(msg)
@@ -127,9 +131,7 @@ export default {
               })
             }
           } else {
-            const message = pmValidate.validateErrMsg(fields)
-            this.$message.error(message)
-            this.submitLoading = false
+            this.validateErrHandle(fields)
           }
         })
       }

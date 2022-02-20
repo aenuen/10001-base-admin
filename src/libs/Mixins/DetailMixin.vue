@@ -1,4 +1,6 @@
 <script>
+import { pmValidate } from 'plugins-methods'
+
 export default {
   data() {
     return {
@@ -15,11 +17,22 @@ export default {
       this.updateId = editId
       this.getDetail()
     }
-    this.startAction()
+    this.startHandle()
   },
   methods: {
     getDetail() {},
-    startAction() {}
+    startHandle() {},
+    submitLoadingOpen() {
+      this.submitLoading = true
+    },
+    submitLoadingClose() {
+      this.submitLoading = false
+    },
+    validateErrHandle(fields) {
+      const msg = pmValidate.validateErrMsg(fields)
+      this.$message.error(msg)
+      this.submitLoading = false
+    }
   }
 }
 </script>

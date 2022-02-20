@@ -3,22 +3,22 @@
     <el-form ref="postForm" :model="postForm" :rules="rulesForm">
       <el-row>
         <el-col>
-          <el-form-item prop="nickName" :label="fields.nickName" :label-width="labelWidth">
-            <el-input v-model.trim="postForm.nickName" maxlength="30" />
+          <el-form-item prop="petName" :label="fields.petName" :label-width="labelWidth">
+            <el-input v-model.trim="postForm.petName" :placeholder="fields.petName" maxlength="30" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
           <el-form-item prop="realName" :label="fields.realName" :label-width="labelWidth">
-            <el-input v-model.trim="postForm.realName" maxlength="10" />
+            <el-input v-model.trim="postForm.realName" :placeholder="fields.realName" maxlength="10" />
           </el-form-item>
         </el-col>
       </el-row>
+      <el-form-item :label-width="labelWidth">
+        <el-button :loading="submitLoading" type="primary" @click="submitAction">编辑基本资料</el-button>
+      </el-form-item>
     </el-form>
-    <div :style="{'padding-left':labelWidth}">
-      <el-button :loading="submitLoading" type="primary" @click="submitAction">编辑基本资料</el-button>
-    </div>
   </div>
 </template>
 
@@ -26,23 +26,27 @@
 import { fields } from '../modules/fields'
 import { BaseDataRule as rulesForm } from '../modules/rules'
 import DetailMixin from '@/libs/Mixins/DetailMixin'
-import { pmValidate } from 'plugins-methods'
+import { mapGetters } from 'vuex'
 import { userDispatch } from '@/api/user'
 export default {
   name: 'PersonalBaseData',
   mixins: [DetailMixin],
-  props: {
-    userInfo: { type: Object, default: () => { return { nickName: '', realName: '' } } }
-  },
   data() {
     return {
       fields,
       rulesForm
     }
   },
-  watch: {
-    userInfo(value) {
-      this.postForm = Object.assign(this.postForm, value)
+  computed: {
+    ...mapGetters(['aid', 'realName', 'petName'])
+  },
+  created() {
+    this.postForm = {
+      ...{
+        id: this.aid,
+        realName: this.realName,
+        petName: this.petName
+      }
     }
   },
   methods: {
@@ -55,13 +59,12 @@ export default {
               const { msg } = res
               this.$message.success(msg)
               this.submitLoading = false
+              this.$store.commit('user/SET_PetNAME', this.postForm.petName)
             }).catch(() => {
               this.submitLoading = false
             })
           } else {
-            const message = pmValidate.validateErrMsg(fields)
-            this.$message.error(message)
-            this.submitLoading = false
+            this.validateErrHandle(fields)
           }
         })
       }

@@ -1,108 +1,70 @@
 <template>
-  <div style="width:1000px;">
-    <el-form ref="postForm" :model="postForm" :rules="rulesForm" style="margin:30px 50px">
+  <div class="app-container">
+    <el-form ref="postForm" :model="postForm" :rules="rulesForm">
       <el-row>
         <el-col>
-          <el-form-item :label="`我的${fields['mobile']}`" :label-width="labelWidth">
-            {{ `：${dataForm.mobile}` }}
-          </el-form-item>
+          <el-form-item :label="`我的${fields.mobile}`" :label-width="labelWidth">{{ `：${mobile}` }}</el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
-          <el-form-item prop="newMobile" :label="`新的${fields['mobile']}`" :label-width="labelWidth">
-            <el-input
-              v-model.trim="postForm.newMobile"
-              :placeholder="`请输入新的${fields['mobile']}`"
-              maxlength="11"
-              style="width:300px"
-              clearable
-              @keyup.enter.native="submitMobile"
-            />
+          <el-form-item prop="newMobile" :label="`新的${fields.mobile}`" :label-width="labelWidth">
+            <el-input v-model.trim="postForm.newMobile" :placeholder="`请输入新的${fields.mobile}`" maxlength="11" style="width:300px" clearable @keyup.enter.native="submitAction" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item :label-width="labelWidth">
-        <el-button
-          v-loading="submitLoading"
-          type="primary"
-          :disabled="submitLoading"
-          @click="submitMobile"
-        >
-          编辑基本资料
-        </el-button>
+        <el-button type="primary" :loading="submitLoading" :disabled="submitLoading" @click="submitAction">编辑基本资料</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-import { pmValidate } from 'plugins-methods'
-import { fields } from '../modules/settings'
+import { fields } from '../modules/fields'
+import { MobileRule as rulesForm } from '../modules/rules'
+import DetailMixin from '@/libs/Mixins/DetailMixin'
+import { mapGetters } from 'vuex'
 import { userDispatch } from '@/api/user'
-
 export default {
-  name: 'ViewsPersonalComponentsEmail', /* 组件名称 */
-  components: { /* 应用组件 */ },
-  filters: { /* 过滤器 */ },
-  directives: { /* 定义指令 */ },
-  props: { /* 定义传值 */
-    userInfo: {
-      type: Object,
-      default() {
-        return {}
-      }
-    }
-  },
-  data() { /* 定义数据 */
+  name: 'Mobile',
+  mixins: [DetailMixin],
+  data() {
     return {
-      fields: fields,
-      dataForm: {},
-      postForm: {
-        newMobile: ''
-      },
-      rulesForm: {
-        newMobile: [{ validator: pmValidate.validateMobile }]
-      },
-      labelWidth: '120px',
-      submitLoading: false
+      fields,
+      rulesForm
     }
   },
-  computed: { /* 计算属性 */ },
-  watch: { /* 监控值变换 */
-    userInfo() {
-      this.dataForm = Object.assign({}, this.userInfo)
-      this.postForm.id = this.dataForm.id
-    }
+  computed: {
+    ...mapGetters(['aid', 'mobile'])
   },
-  mounted() { /* 渲染后运行 */
-  },
-  created() { /* 创建后运行 */
-  },
-  methods: { /* 函数及方法 */
-    submitMobile() {
+  methods: {
+    submitAction() {
       if (!this.submitLoading) {
-        this.submitLoading = true
+        this.submitLoadingOpen()
         this.$refs.postForm.validate((valid, fields) => {
           if (valid) {
-            if (this.postForm.mobile === this.postForm.newMobile) {
-              this.$message.warning('手机号码一致，无需修改！')
-              this.submitLoading = false
+            if (this.mobile === this.postForm.newMobile) {
+              this.$message.error('新旧新手号码一致无须修改')
+              this.submitLoadingClose()
             } else {
-              userDispatch.use(this.postForm).then(res => {
-                const { msg } = res
-                this.$message.success(msg)
-                this.submitLoading = false
-                this.dataForm.mobile = this.postForm.newMobile
-                this.$refs.postForm.resetFields()
+              this.postForm.id = this.aid
+              userDispatch.use('mobile', this.postForm).then(({ code, msg }) => {
+                if (code === 200) {
+                  this.$message.success(msg)
+                  this.submitLoadingClose()
+                  this.$store.commit('user/SET_MOBILE', this.postForm.newMobile)
+                  this.$refs.postForm.resetFields()
+                } else {
+                  this.$message.error(msg)
+                  this.submitLoadingClose()
+                }
               }).catch(() => {
-                this.submitLoading = false
+                this.submitLoadingClose()
               })
             }
           } else {
-            const message = pmValidate.validateErrMsg(fields)
-            this.$message.error(message)
-            this.submitLoading = false
+            this.validateErrHandle(fields)
           }
         })
       }

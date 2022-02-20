@@ -1,79 +1,70 @@
 <template>
-  <div style="width:1000px;">
+  <div class="app-container">
     <el-form ref="postForm" :model="postForm" :rules="rulesForm" style="margin:30px 50px">
       <el-row>
         <el-col>
-          <el-form-item :label="`我的${fields['email']}`" :label-width="labelWidth">{{ `：${dataForm.email}` }}</el-form-item>
+          <el-form-item :label="`我的${fields.email}`" :label-width="labelWidth">{{ `：${email}` }}</el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
-          <el-form-item prop="newEmail" :label="`新的${fields['email']}`" :label-width="labelWidth">
-            <el-input v-model.trim="postForm.newEmail" :placeholder="`请输入新的${fields['email']}`" maxlength="30" style="width:300px" clearable @keyup.enter.native="submitEmail" />
+          <el-form-item prop="newEmail" :label="`新的${fields.email}`" :label-width="labelWidth">
+            <el-input v-model.trim="postForm.newEmail" :placeholder="`请输入新的${fields.email}`" maxlength="30" style="width:300px" clearable @keyup.enter.native="submitAction" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item :label-width="labelWidth">
-        <el-button v-loading="submitLoading" type="primary" :disabled="submitLoading" @click="submitEmail">编辑基本资料</el-button>
+        <el-button v-loading="submitLoading" type="primary" :disabled="submitLoading" @click="submitAction">修改电子邮箱</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-import { pmValidate } from 'plugins-methods'
-import { fields } from '../modules/settings'
+import DetailMixin from '@/libs/Mixins/DetailMixin'
+import { fields } from '../modules/fields'
+import { EmailRule as rulesForm } from '../modules/rules'
+import { mapGetters } from 'vuex'
 import { userDispatch } from '@/api/user'
-
 export default {
-  name: 'ViewsPersonalComponentsEmail', /* 组件名称 */
-  props: { /* 定义传值 */
-    userInfo: { type: Object, default: () => {} }
-  },
-  data() { /* 定义数据 */
+  name: 'Email',
+  mixins: [DetailMixin],
+  data() {
     return {
-      fields: fields,
-      dataForm: {},
-      postForm: {
-        newEmail: ''
-      },
-      rulesForm: {
-        newEmail: [{ validator: pmValidate.validateEmail }]
-      },
-      labelWidth: '120px',
-      submitLoading: false
+      fields,
+      rulesForm
     }
   },
-  watch: { /* 监控值变换 */
-    userInfo() {
-      this.dataForm = Object.assign({}, this.userInfo)
-      this.postForm.id = this.dataForm.id
-    }
+  computed: {
+    ...mapGetters(['aid', 'email'])
   },
-  methods: { /* 函数及方法 */
-    submitEmail() {
+  methods: {
+    submitAction() {
       if (!this.submitLoading) {
-        this.submitLoading = true
+        this.submitLoadingOpen()
         this.$refs.postForm.validate((valid, fields) => {
           if (valid) {
-            if (this.postForm.email === this.postForm.newEmail) {
-              this.$message.warning('电子邮箱一致，无需修改！')
-              this.submitLoading = false
+            if (this.email === this.postForm.newEmail) {
+              this.$message.error('新旧密码一致无须修改')
+              this.submitLoadingClose()
             } else {
-              userDispatch.use(this.postForm).then(res => {
-                const { msg } = res
-                this.$message.success(msg)
-                this.submitLoading = false
-                this.dataForm.email = this.postForm.newEmail
-                this.$refs.postForm.resetFields()
+              this.postForm.id = this.aid
+              userDispatch.use('email', this.postForm).then(({ code, msg }) => {
+                if (code === 200) {
+                  this.$message.success(msg)
+                  this.submitLoadingClose()
+                  this.$store.commit('user/SET_EMAIL', this.postForm.newEmail)
+                  this.$refs.postForm.resetFields()
+                } else {
+                  this.$message.error(msg)
+                  this.submitLoadingClose()
+                }
               }).catch(() => {
-                this.submitLoading = false
+                this.submitLoadingClose()
               })
             }
           } else {
-            const message = pmValidate.validateErrMsg(fields)
-            this.$message.error(message)
-            this.submitLoading = false
+            this.validateErrHandle(fields)
           }
         })
       }

@@ -6,7 +6,7 @@ export const userDispatch = new Dispatch({
   list: ['/user/list', 'get'], // 列表
   avatarList: ['/user/avatarList', 'get'], // 头像列表
   avatarHistory: ['/user/avatarHistory', 'get'], // 历史上传
-  create: ['/user/insert', 'post'], // 新建用户
+  create: ['/user/create', 'post'], // 新建用户
   state: ['/user/state', 'post'], // 新建用户
   base: ['/user/base', 'post'], // 修改基本信息
   avatar: ['/user/avatar', 'post'], // 更换头像
