@@ -14,8 +14,16 @@
       </el-select>
       <el-button type="primary" class="filter-btn el-icon-search" @click="handleFilter">搜索</el-button>
       <el-button type="primary" class="filter-btn el-icon-plus" @click="routerGo('create')">创建</el-button>
+      <el-dropdown class="avatar-container hover-effect" trigger="click">
+        <el-button type="primary" class="filter-btn el-icon-document">导出</el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click.native="exportData('xlsx')">导出EXCEL</el-dropdown-item>
+          <el-dropdown-item @click.native="exportData('csv')">导出CSV</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
     <ListTable
+      id="userListTable"
       :table-data="tableData"
       :table-loading="tableLoading"
       :table-sort="tableSort"
@@ -35,11 +43,13 @@ import { isUseAry, pmKeyword } from 'plugins-methods'
 import ListMixin from '@/libs/Mixins/ListMixin'
 import MethodsMixin from '@/libs/Mixins/MethodsMixin'
 import ListTable from './components/ListTable'
+import Export from './mixins/Export'
 import { userDispatch } from '@/api/user'
+
 export default {
   name: 'ManagerList',
   components: { ListTable },
-  mixins: [ListMixin, MethodsMixin],
+  mixins: [ListMixin, MethodsMixin, Export],
   data() {
     return {
       fields,

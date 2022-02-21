@@ -48,7 +48,6 @@
 <script>
 import { fields } from '../modules/fields'
 import noneImage from '@/assets/image/noneImage.png'
-import { pmTime } from 'plugins-methods'
 export default {
   name: 'ListTable',
   props: {
@@ -63,9 +62,6 @@ export default {
       fields,
       noneImage
     }
-  },
-  created() {
-    console.log(pmTime.timeStamp())
   },
   methods: {
     onSortChange(data) {
