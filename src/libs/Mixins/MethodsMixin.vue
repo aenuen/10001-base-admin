@@ -1,6 +1,10 @@
 <script>
 export default {
   methods: {
+    backClose() {
+      this.$store['dispatch']('tagsView/delView', this.$route)
+      this.$router.back()
+    },
     routerClose(path, query) {
       this.$store['dispatch']('tagsView/delView', this.$route)
       this.routerGo(path, query)

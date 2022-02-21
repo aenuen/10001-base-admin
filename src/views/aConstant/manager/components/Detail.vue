@@ -4,51 +4,58 @@
       <el-row>
         <el-col>
           <el-form-item prop="username" :label="fields.username" :label-width="labelWidth">
-            <el-input v-model="postForm.username" :placeholder="fields.username" clearable />
+            <el-input v-model="postForm.username" :placeholder="fields.username" clearable style="width: 500px;" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
           <el-form-item prop="password" :label="fields.password" :label-width="labelWidth">
-            <el-input v-model="postForm.password" :placeholder="fields.password" clearable show-password />
+            <el-input v-model="postForm.password" :placeholder="isEdit?`${fields.password}，不填写则不修改密码`:fields.password" clearable show-password style="width: 500px;" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
           <el-form-item prop="petName" :label="fields.petName" :label-width="labelWidth">
-            <el-input v-model="postForm.petName" :placeholder="fields.petName" clearable />
+            <el-input v-model="postForm.petName" :placeholder="fields.petName" clearable style="width: 500px;" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
           <el-form-item prop="realName" :label="fields.realName" :label-width="labelWidth">
-            <el-input v-model="postForm.realName" :placeholder="fields.realName" clearable />
+            <el-input v-model="postForm.realName" :placeholder="fields.realName" clearable style="width: 500px;" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
           <el-form-item prop="email" :label="fields.email" :label-width="labelWidth">
-            <el-input v-model="postForm.email" :placeholder="fields.email" clearable />
+            <el-input v-model="postForm.email" :placeholder="fields.email" clearable style="width: 500px;" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
           <el-form-item prop="mobile" :label="fields.mobile" :label-width="labelWidth">
-            <el-input v-model="postForm.mobile" :placeholder="fields.mobile" clearable />
+            <el-input v-model="postForm.mobile" :placeholder="fields.mobile" clearable style="width: 500px;" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
-          <el-form-item prop="role" :label="fields.role" :label-width="labelWidth">
-            <el-select v-model="postForm.role" clearable :placeholder="fields.role">
-              <el-option v-for="(item,index) in roles" :key="index" :label="item['label']" :value="item['value']" />
+          <el-form-item prop="roles" :label="fields.roles" :label-width="labelWidth">
+            <el-select v-model="postForm.roles" :placeholder="fields.roles" clearable multiple style="width: 500px;">
+              <el-option v-for="(item,index) in rolesAry" :key="index" :label="item['label']" :value="item['value']" />
             </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item prop="introduction" :label="fields.introduction" :label-width="labelWidth">
+            <el-input v-model.trim="postForm.introduction" :placeholder="fields.introduction" type="textarea" clearable :rows="4" resize="none" maxlength="140" style="width: 500px;" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -63,8 +70,8 @@
 import DetailMixin from '@/libs/Mixins/DetailMixin'
 import MethodsMixin from '@/libs/Mixins/MethodsMixin'
 import { fields } from '../modules/fields'
-import { roles } from '../modules/roles'
-import { DetailRule as rulesForm } from '../modules/rules'
+import { rolesAry } from '../modules/roles'
+import { DetailRule as rulesForm, DetailPasswordRule as rulesPassword } from '../modules/rules'
 import { CryptoJsEncode } from '@/libs/cryptojs'
 import { userDispatch } from '@/api/user'
 
@@ -77,57 +84,72 @@ export default {
   data() {
     return {
       fields,
-      roles,
-      rulesForm
+      rolesAry,
+      rulesForm,
+      rulesPassword,
+      postForm: {
+        roles: ['user']
+      }
     }
   },
   computed: {
     submitText() {
-      return this.isEdit ? '编辑角色' : '创建角色'
+      return this.isEdit ? '编辑用户' : '创建用户'
     }
   },
   mounted() {
-    const username = this.$route.params.username
-    if (username) {
-      this.username = username
+    const id = this.$route.params.id
+    if (id) {
+      this.updateId = id
+      this.rulesForm.password = this.rulesPassword.updatePassword
       this.getData()
+    } else {
+      this.rulesForm.password = this.rulesPassword.createPassword
     }
   },
   methods: {
     getData() {
-      userDispatch.use('info', { username: this.username }).then(({ code, data }) => {
+      userDispatch.use('detail', { id: this.updateId }).then(({ code, data }) => {
         if (code === 200) {
           this.postForm = data
-          this.submitText = '编辑管理员'
-          this.isEdit = true
         }
       }).catch(() => {
         this.$message.error('无效的用户名')
         this.$router.go(-1)
       })
     },
+    commentHandle(msg) {
+      this.$message.success(msg)
+      this.submitLoadingClose()
+      this.$refs.postForm.resetFields()
+    },
     submitAction() {
       if (!this.submitLoading) {
-        this.submitLoading = true
+        this.submitLoadingOpen()
         this.$refs.postForm.validate((valid, fields) => {
           if (valid) {
-            if (this.isEdit) {
-              console.log(1)
-            } else {
+            let data
+            if (this.postForm.password) {
               const password = CryptoJsEncode(this.postForm.password)
-              userDispatch.use('create', {
-                username: this.postForm.username,
-                password,
-                petName: this.postForm.petName,
-                realName: this.postForm.realName,
-                email: this.postForm.email,
-                mobile: this.postForm.mobile,
-                role: this.postForm.role
-              }).then(({ code, msg }) => {
+              data = { ...this.postForm, ...{ password }}
+            } else {
+              data = this.postForm
+            }
+            if (this.isEdit) {
+              userDispatch.use('update', data).then(({ code, msg }) => {
                 if (code === 200) {
-                  this.$message.success(msg)
+                  this.commentHandle(msg)
+                  this.backClose()
+                } else {
                   this.submitLoading = false
-                  this.$refs.postForm.resetFields()
+                }
+              }).catch(() => {
+                this.submitLoading = false
+              })
+            } else {
+              userDispatch.use('create', data).then(({ code, msg }) => {
+                if (code === 200) {
+                  this.commentHandle(msg)
                   this.routerClose('/manager/list')
                 } else {
                   this.submitLoading = false

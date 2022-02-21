@@ -3,23 +3,8 @@
     <el-tooltip :content="show?'关闭页面搜索':'打开页面搜索'" effect="dark" placement="bottom">
       <svg-icon class-name="search-icon" icon-class="search" @click.stop="click" />
     </el-tooltip>
-    <el-select
-      ref="headerSearchSelect"
-      v-model="search"
-      :remote-method="querySearch"
-      filterable
-      default-first-option
-      remote
-      placeholder="请输入关键词，页面搜索"
-      class="header-search-select"
-      @change="change"
-    >
-      <el-option
-        v-for="item in options"
-        :key="item.path"
-        :value="item"
-        :label="item.title.join(' > ')"
-      />
+    <el-select ref="headerSearchSelect" v-model="search" :remote-method="querySearch" filterable default-first-option remote placeholder="请输入关键词，页面搜索" class="header-search-select" @change="change">
+      <el-option v-for="item in options" :key="item.path" :value="item" :label="item.title.join(' > ')" />
     </el-select>
   </div>
 </template>
@@ -88,40 +73,25 @@ export default {
         distance: 100,
         maxPatternLength: 32,
         minMatchCharLength: 1,
-        keys: [{
-          name: 'title',
-          weight: 0.7
-        }, {
-          name: 'path',
-          weight: 0.3
-        }]
+        keys: [{ name: 'title', weight: 0.7 }, { name: 'path', weight: 0.3 }]
       })
     },
     generateRoutes(routes, basePath = '/', prefixTitle = []) {
       let res = []
-
       for (const router of routes) {
-        // skip hidden router
         if (router.hidden) {
           continue
         }
-
         const data = {
           path: path.resolve(basePath, router.path),
           title: [...prefixTitle]
         }
-
         if (router.meta && router.meta.title) {
           data.title = [...data.title, router.meta.title]
-
           if (router.redirect !== 'noRedirect') {
-            // only push the routes with title
-            // special case: need to exclude parent router without redirect
             res.push(data)
           }
         }
-
-        // recursive child routes
         if (router.children) {
           const tempRoutes = this.generateRoutes(router.children, data.path, data.title)
           if (tempRoutes.length >= 1) {

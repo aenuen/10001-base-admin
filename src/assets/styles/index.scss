@@ -33,7 +33,7 @@ html {
 }
 
 .no-padding {
-  padding: 0px !important;
+  padding: 0 !important;
 }
 
 .padding-content {
@@ -174,15 +174,15 @@ aside {
 .filter-container {
   padding-bottom: 10px;
 
-  .filter-item, .filter-ele {
+  .filter-ele, .filter-btn {
     display: inline-block;
     vertical-align: middle;
+    margin-right: 10px;
     margin-bottom: 10px;
   }
 
   .filter-ele {
     width: 180px;
-    margin-right: 10px;
   }
 
   .filter-ele:last-child {
@@ -190,22 +190,8 @@ aside {
   }
 
   .filter-btn {
-    display: inline-block;
+    margin-left: 0 !important;
     width: 100px;
-    margin-left: 0;
-  }
-
-  .filter-span {
-    width: 180px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-left:0;
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
-
-  .filter-button {
-    margin-left: 0;
   }
 }
 

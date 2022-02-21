@@ -9,5 +9,7 @@ export const fields = {
   password: '密码',
   email: '电子邮箱',
   mobile: '手机号码',
-  role: '角色'
+  roles: '角色',
+  introduction: '个性签名',
+  isAdmin: '后台用户'
 }

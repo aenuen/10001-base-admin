@@ -24,7 +24,6 @@ export default {
 
 <style lang="scss" scoped>
 .app-main {
-  /* 50= navbar  50  */
   min-height: calc(100vh - 50px);
   width: 100%;
   position: relative;
@@ -37,7 +36,6 @@ export default {
 
 .hasTagsView {
   .app-main {
-    /* 84 = navbar + tags-view = 50 + 34 */
     min-height: calc(100vh - 84px);
   }
 
@@ -48,7 +46,7 @@ export default {
 </style>
 
 <style lang="scss">
-// fix css style bug in open el-dialog
+// 修复打开el-dialog时的CSS样式错误
 .el-popup-parent--hidden {
   .fixed-header {
     padding-right: 15px;

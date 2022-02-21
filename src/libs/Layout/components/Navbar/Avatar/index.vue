@@ -4,7 +4,7 @@
     <el-dropdown class="avatar-container hover-effect" trigger="click">
       <div class="avatar-wrapper" style="cursor: pointer">
         <el-avatar class="user-avatar" :size="35" :src="`${avatar}`" @error="true">
-          <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png">
+          <img :src="noneImage">
         </el-avatar>
         <i class="el-icon-caret-bottom" />
       </div>
@@ -12,7 +12,7 @@
         <router-link to="/">
           <el-dropdown-item>首页</el-dropdown-item>
         </router-link>
-        <router-link to="/personal/data">
+        <router-link to="/manager/data">
           <el-dropdown-item>个人资料</el-dropdown-item>
         </router-link>
         <el-dropdown-item divided @click.native="logout">
@@ -25,27 +25,19 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import noneImage from '@/assets/image/noneImage.png'
 
 export default {
-  name: '', /* 组件名称 */
-  components: { /* 应用组件 */ },
-  filters: { /* 过滤器 */ },
-  directives: { /* 定义指令 */ },
-  props: { /* 定义传值 */ },
-  data() { /* 定义数据 */
-    return {}
+  name: 'LayoutAvatar',
+  data() {
+    return {
+      noneImage
+    }
   },
-  computed: { /* 监控自定义的变量 */
-    ...mapGetters([
-      'avatar'
-    ])
+  computed: {
+    ...mapGetters(['avatar'])
   },
-  watch: { /* 监控值变换 */ },
-  mounted() { /* 渲染后运行 */
-  },
-  created() { /* 创建后运行 */
-  },
-  methods: { /* 函数及方法 */
+  methods: {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)

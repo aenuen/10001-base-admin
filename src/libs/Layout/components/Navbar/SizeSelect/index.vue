@@ -4,14 +4,7 @@
       <svg-icon class-name="size-icon" icon-class="size" />
     </div>
     <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item
-        v-for="item of sizeOptions"
-        :key="item.value"
-        :disabled="size===item.value"
-        :command="item.value"
-      >
-        {{ item.label }}
-      </el-dropdown-item>
+      <el-dropdown-item v-for="item of sizeOptions" :key="item.value" :disabled="size===item.value" :command="item.value">{{ item.label }}</el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
 </template>
@@ -38,10 +31,7 @@ export default {
       this.$ELEMENT.size = size
       this.$store.dispatch('app/setSize', size)
       this.refreshView()
-      this.$message({
-        message: '选择字体成功',
-        type: 'success'
-      })
+      this.$message({ message: '选择字体成功', type: 'success' })
     },
     refreshView() {
       this.$store.dispatch('tagsView/delAllCachedViews', this.$route)

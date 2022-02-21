@@ -56,8 +56,7 @@ export default {
       }, 16.7)
     },
     easeInOutQuad(t, b, c, d) {
-      if ((t /= d / 2) < 1) return c / 2 * t * t + b
-      return -c / 2 * (--t * (t - 2) - 1) + b
+      return (t /= d / 2) < 1 ? c / 2 * t * t + b : -c / 2 * (--t * (t - 2) - 1) + b
     }
   }
 }
@@ -75,13 +74,11 @@ export default {
   background: #d5dbe7;
 }
 
-.fade-enter-active,
-.fade-leave-active {
+.fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
 
-.fade-enter,
-.fade-leave-to {
+.fade-enter, .fade-leave-to {
   opacity: 0
 }
 

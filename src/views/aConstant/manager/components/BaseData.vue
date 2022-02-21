@@ -15,6 +15,13 @@
           </el-form-item>
         </el-col>
       </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item prop="introduction" :label="fields.introduction" :label-width="labelWidth">
+            <el-input v-model.trim="postForm.introduction" type="textarea" :rows="4" resize="none" :placeholder="fields.introduction" maxlength="140" />
+          </el-form-item>
+        </el-col>
+      </el-row>
       <el-form-item :label-width="labelWidth">
         <el-button :loading="submitLoading" type="primary" @click="submitAction">编辑基本资料</el-button>
       </el-form-item>
@@ -38,14 +45,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['aid', 'realName', 'petName'])
+    ...mapGetters(['aid', 'realName', 'petName', 'introduction'])
   },
   created() {
     this.postForm = {
       ...{
         id: this.aid,
         realName: this.realName,
-        petName: this.petName
+        petName: this.petName,
+        introduction: this.introduction
       }
     }
   },

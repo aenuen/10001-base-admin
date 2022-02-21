@@ -1,12 +1,12 @@
 <template>
-  <detail />
+  <detail is-edit />
 </template>
 
 <script>
 import Detail from './components/Detail'
 
 export default {
-  name: 'PersonalCreate',
+  name: 'PersonalUpdate',
   components: { Detail }
 }
 </script>

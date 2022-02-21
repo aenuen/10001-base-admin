@@ -14,7 +14,7 @@
                   <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt>
                 </el-avatar>
               </div>
-              <div class="box-center">
+              <div class="user-info">
                 <div class="user-name">{{ petName }}</div>
                 <div class="user-role text-muted">{{ rolesCn }}</div>
               </div>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { roles } from './modules/roles'
+import { rolesParse } from './modules/roles'
 import ListMixin from '@/libs/Mixins/ListMixin'
 import Password from './components/Password'
 import BaseData from './components/BaseData'
@@ -63,11 +63,7 @@ export default {
     ...mapGetters(['roles', 'petName', 'avatar'])
   },
   created() {
-    const ary = []
-    this.roles.forEach((value) => {
-      ary.push(roles[value].label)
-    })
-    this.rolesCn = ary.join(',')
+    this.rolesCn = rolesParse(this.roles.join(','))
   },
   methods: {
     setData() {
@@ -87,6 +83,10 @@ export default {
   .box-center {
     margin: 0 auto;
     display: table;
+  }
+
+  .user-info {
+    text-align: center;
   }
 
   .user-name {

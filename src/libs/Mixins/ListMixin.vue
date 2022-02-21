@@ -55,7 +55,7 @@ export default {
       this.queryList.timestamp = Math.random() * 1000
       this.refresh()
     },
-    sortChangeEmit({ prop, order }) {
+    onSortChange({ prop, order }) {
       this.queryList.sort = (order === 'descending' ? `-` : `+`) + `${prop}`
       this.handleFilter()
     },
