@@ -11,5 +11,6 @@ export const fields = {
   mobile: '手机号码',
   roles: '角色',
   introduction: '个性签名',
-  isAdmin: '后台用户'
+  isAdmin: '后台用户',
+  created: '创建日期'
 }

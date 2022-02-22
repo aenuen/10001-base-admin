@@ -42,14 +42,21 @@
         <el-switch v-model="tableIsUse[id]" active-color="#13ce66" inactive-color="#ff4949" @change="onIsUseChange($event,id)" />
       </template>
     </el-table-column>
+    <el-table-column :label="fields.created" align="center">
+      <template slot-scope="{row:{created}}">{{ created|filterDateHI }}</template>
+    </el-table-column>
   </el-table>
 </template>
 
 <script>
 import { fields } from '../modules/fields'
 import noneImage from '@/assets/image/noneImage.png'
+import { filterDateHI } from 'plugins-methods'
 export default {
   name: 'ListTable',
+  filters: {
+    filterDateHI
+  },
   props: {
     tableLoading: Boolean,
     tableSort: { type: Object, default: () => {} },

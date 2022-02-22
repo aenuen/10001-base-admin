@@ -107,6 +107,9 @@ export default {
       this.rulesForm.password = this.rulesPassword.createPassword
     }
   },
+  created() {
+    console.log(this.$route.query.goindex)
+  },
   methods: {
     getData() {
       userDispatch.use('detail', { id: this.updateId }).then(({ code, data }) => {
