@@ -25,6 +25,7 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期"
         :picker-options="pickerOptions"
+        @change="handleFilter"
       />
       <el-button type="primary" class="filter-btn el-icon-search" @click="handleFilter">搜索</el-button>
       <el-button type="primary" class="filter-btn el-icon-plus" @click="routerGo('create')">创建</el-button>
@@ -62,7 +63,7 @@
 <script>
 import { fields } from './modules/fields'
 import { rolesAry, rolesObject, rolesParse } from './modules/roles'
-import { isUseAry, booleanAry, pmKeyword } from 'plugins-methods'
+import { isUseAry, booleanAry, pmKeyword, pmTime } from 'plugins-methods'
 import ListMixin from '@/components/Mixins/ListMixin'
 import MethodsMixin from '@/components/Mixins/MethodsMixin'
 import ListTable from './components/ListTable'
@@ -88,6 +89,9 @@ export default {
         shortcuts: daterangeShortcuts()
       }
     }
+  },
+  created() {
+    console.log(pmTime.timeStamp())
   },
   methods: {
     startAction() {
