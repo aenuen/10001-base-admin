@@ -33,7 +33,7 @@
 
 <script>
 import { fields } from '../modules/fields'
-import DetailMixin from '@/libs/Mixins/DetailMixin'
+import DetailMixin from '@/components/Mixins/DetailMixin'
 import ImgCutter from '@/components/imgCutter'
 import AvatarHistory from './AvatarHistory'
 import { mapGetters } from 'vuex'

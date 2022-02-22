@@ -23,7 +23,7 @@
 <script>
 import { fields } from '../modules/fields'
 import { MobileRule as rulesForm } from '../modules/rules'
-import DetailMixin from '@/libs/Mixins/DetailMixin'
+import DetailMixin from '@/components/Mixins/DetailMixin'
 import { mapGetters } from 'vuex'
 import { userDispatch } from '@/api/user'
 export default {

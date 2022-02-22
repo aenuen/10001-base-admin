@@ -26,7 +26,7 @@
     "normalize.css": "8.0.1",
     "nprogress": "0.2.0",
     "path-to-regexp": "6.2.0",
-    "plugins-methods": "^1.1.23",
+    "plugins-methods": "^1.1.25",
     "print-js": "^1.6.0",
     "qs": "^6.10.3",
     "screenfull": "4.2.0",

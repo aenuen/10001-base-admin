@@ -42,7 +42,7 @@
 
 <script>
 import { rolesParse } from './modules/roles'
-import ListMixin from '@/libs/Mixins/ListMixin'
+import ListMixin from '@/components/Mixins/ListMixin'
 import Password from './components/Password'
 import BaseData from './components/BaseData'
 import Avatar from './components/Avatar'

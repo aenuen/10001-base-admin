@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import DetailMixin from '@/libs/Mixins/DetailMixin'
+import DetailMixin from '@/components/Mixins/DetailMixin'
 import { fields } from '../modules/fields'
 import { EmailRule as rulesForm } from '../modules/rules'
 import { mapGetters } from 'vuex'

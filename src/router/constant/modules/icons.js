@@ -1,4 +1,4 @@
-import Layout from '@/libs/Layout'
+import Layout from '@/components/Layout'
 
 const iconsRouter = {
   path: '/svgIcon',

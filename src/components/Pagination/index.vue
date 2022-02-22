@@ -20,40 +20,14 @@ import { scrollTo } from 'plugins-methods'
 export default {
   name: 'Pagination',
   props: {
-    total: {
-      required: true,
-      type: Number
-    },
-    page: {
-      type: Number,
-      default: 1
-    },
-    limit: {
-      type: Number,
-      default: 20
-    },
-    pageSizes: {
-      type: Array,
-      default() {
-        return [10, 20, 30, 50]
-      }
-    },
-    layout: {
-      type: String,
-      default: 'total, sizes, prev, pager, next, jumper'
-    },
-    background: {
-      type: Boolean,
-      default: true
-    },
-    autoScroll: {
-      type: Boolean,
-      default: true
-    },
-    hidden: {
-      type: Boolean,
-      default: false
-    }
+    total: { required: true, type: Number },
+    page: { type: Number, default: 1 },
+    limit: { type: Number, default: 20 },
+    pageSizes: { type: Array, default: () => [10, 20, 30, 50] },
+    layout: { type: String, default: 'total, sizes, prev, pager, next, jumper' },
+    background: { type: Boolean, default: true },
+    autoScroll: { type: Boolean, default: true },
+    hidden: { type: Boolean, default: false }
   },
   computed: {
     currentPage: {
@@ -94,6 +68,8 @@ export default {
 .pagination-container {
   background: #fff;
   padding: 32px 16px;
+  display: inline-block;
+  float: none;
 }
 
 .pagination-container.hidden {

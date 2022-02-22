@@ -67,8 +67,8 @@
 </template>
 
 <script>
-import DetailMixin from '@/libs/Mixins/DetailMixin'
-import MethodsMixin from '@/libs/Mixins/MethodsMixin'
+import DetailMixin from '@/components/Mixins/DetailMixin'
+import MethodsMixin from '@/components/Mixins/MethodsMixin'
 import { fields } from '../modules/fields'
 import { rolesAry } from '../modules/roles'
 import { DetailRule as rulesForm, DetailPasswordRule as rulesPassword } from '../modules/rules'

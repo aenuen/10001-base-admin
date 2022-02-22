@@ -32,7 +32,7 @@
 <script>
 import { fields } from '../modules/fields'
 import { PasswordRule as rulesForm } from '../modules/rules'
-import DetailMixin from '@/libs/Mixins/DetailMixin'
+import DetailMixin from '@/components/Mixins/DetailMixin'
 import { CryptoJsEncode } from '@/libs/cryptojs'
 import { mapGetters } from 'vuex'
 import { userDispatch } from '@/api/user'

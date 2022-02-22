@@ -36,7 +36,7 @@ module.exports = {
       }
     ])
     /**
-     * config.plugins.delete('prefetch')
+     * config.plugins.md.delete('prefetch')
      * 当页面太多时，会导致太多无意义的请求
      * 删除懒加载模块的prefetch，降低带宽压力
      * 而且预渲染时生成的prefetch标签是modern版本的，低版本浏览器是不需要的
