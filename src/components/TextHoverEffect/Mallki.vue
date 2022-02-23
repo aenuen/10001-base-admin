@@ -1,5 +1,5 @@
 <template>
-  <a :class="className" class="link--mallki" href="#">
+  <a :class="className" class="link--mall-ki" href="#">
     {{ text }}
     <span :data-letters="text" />
     <span :data-letters="text" />
@@ -8,23 +8,16 @@
 
 <script>
 export default {
+  name: 'ComponentsTextHoverEffect',
   props: {
-    className: {
-      type: String,
-      default: ''
-    },
-    text: {
-      type: String,
-      default: 'vue-element-admin'
-    }
+    className: { type: String, default: '' },
+    text: { type: String, default: '' }
   }
 }
 </script>
 
 <style>
-/* Mallki */
-
-.link--mallki {
+.link--mall-ki {
   font-weight: 800;
   color: #4dd9d5;
   font-family: 'Dosis', sans-serif;
@@ -38,13 +31,13 @@ export default {
   text-decoration: none;
 }
 
-.link--mallki:hover {
+.link--mall-ki:hover {
   -webkit-transition: none;
   transition: none;
   color: transparent;
 }
 
-.link--mallki::before {
+.link--mall-ki::before {
   content: '';
   width: 100%;
   height: 6px;
@@ -61,12 +54,12 @@ export default {
   transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.link--mallki:hover::before {
+.link--mall-ki:hover::before {
   -webkit-transform: translate3d(100%, 0, 0);
   transform: translate3d(100%, 0, 0);
 }
 
-.link--mallki span {
+.link--mall-ki span {
   position: absolute;
   height: 50%;
   width: 100%;
@@ -75,9 +68,8 @@ export default {
   overflow: hidden;
 }
 
-.link--mallki span::before {
+.link--mall-ki span::before {
   content: attr(data-letters);
-  color: red;
   position: absolute;
   left: 0;
   width: 100%;
@@ -86,23 +78,23 @@ export default {
   transition: transform 0.5s;
 }
 
-.link--mallki span:nth-child(2) {
+.link--mall-ki span:nth-child(2) {
   top: 50%;
 }
 
-.link--mallki span:first-child::before {
+.link--mall-ki span:first-child::before {
   top: 0;
   -webkit-transform: translate3d(0, 100%, 0);
   transform: translate3d(0, 100%, 0);
 }
 
-.link--mallki span:nth-child(2)::before {
+.link--mall-ki span:nth-child(2)::before {
   bottom: 0;
   -webkit-transform: translate3d(0, -100%, 0);
   transform: translate3d(0, -100%, 0);
 }
 
-.link--mallki:hover span::before {
+.link--mall-ki:hover span::before {
   -webkit-transition-delay: 0.3s;
   transition-delay: 0.3s;
   -webkit-transform: translate3d(0, 0, 0);

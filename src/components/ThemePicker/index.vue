@@ -1,3 +1,4 @@
+<!--suppress CssUnusedSymbol, ES6ShorthandObjectProperty, SpellCheckingInspection -->
 <template>
   <el-color-picker
     v-model="theme"
@@ -8,13 +9,14 @@
 </template>
 
 <script>
-const version = require('element-ui/package.json').version // element-ui version from node_modules
-const ORIGINAL_THEME = '#409EFF' // default color
+const version = require('element-ui/package.json').version
+const ORIGINAL_THEME = '#409EFF'
 
 export default {
+  name: 'ComponentsThemePicker',
   data() {
     return {
-      chalk: '', // content of theme-chalk css
+      chalk: '',
       theme: ''
     }
   },
@@ -25,7 +27,7 @@ export default {
   },
   watch: {
     defaultTheme: {
-      handler: function(val, oldVal) {
+      handler: function(val) {
         this.theme = val
       },
       immediate: true
@@ -89,7 +91,7 @@ export default {
   methods: {
     updateStyle(style, oldCluster, newCluster) {
       let newStyle = style
-      oldCluster.forEach((color, step) => {
+      oldCluster.forEach((color) => {
         newStyle = newStyle.replace(new RegExp(color, 'ig'), newCluster['index'])
       })
       return newStyle

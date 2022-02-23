@@ -63,7 +63,7 @@
 <script>
 import { fields } from './modules/fields'
 import { rolesAry, rolesObject, rolesParse } from './modules/roles'
-import { isUseAry, booleanAry, pmKeyword, pmTime } from 'plugins-methods'
+import { isUseAry, booleanAry, pmKeyword } from 'plugins-methods'
 import ListMixin from '@/components/Mixins/ListMixin'
 import MethodsMixin from '@/components/Mixins/MethodsMixin'
 import ListTable from './components/ListTable'
@@ -90,10 +90,12 @@ export default {
       }
     }
   },
-  created() {
-    console.log(pmTime.timeStamp())
-  },
   methods: {
+    setData() {
+      return {
+        sort: '-id'
+      }
+    },
     startAction() {
       userDispatch.use('list', this.queryList).then(({ code, data: { list, count }}) => {
         if (code === 200) {

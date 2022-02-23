@@ -11,7 +11,7 @@
 <script>
 import { defaultData } from './settings'
 export default {
-  name: 'BackToTop',
+  name: 'ComponentsBackToTop',
   props: {
     visibilityHeight: { type: Number, default: 100 },
     backPosition: { type: Number, default: 0 },

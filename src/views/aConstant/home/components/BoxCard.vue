@@ -5,7 +5,7 @@
     </div>
     <div style="position:relative;">
       <pan-thumb :image="avatar" class="panThumb" />
-      <mallki class-name="mallki-text" :text="`欢迎回来，${realName}`" />
+      <mall-ki class-name="link--mall-ki" :text="`欢迎回来，${realName}`" />
       <div style="padding-top:50px;" class="progress-item">
         <el-button type="primary" :style="{width:buttonWidth}" class="el-icon-edit" @click="gotoCaseCreate">前往案件录入</el-button>
         <el-button type="primary" :style="{width:buttonWidth}" class="el-icon-finished" @click="gotoCaseList">前往案件列表</el-button>
@@ -17,10 +17,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import PanThumb from '@/components/PanThumb'
-import Mallki from '@/components/TextHoverEffect/Mallki'
+import MallKi from '@/components/TextHoverEffect/Mallki'
 
 export default {
-  components: { PanThumb, Mallki },
+  components: { PanThumb, MallKi },
   filters: {},
   data() {
     return {
@@ -70,10 +70,10 @@ export default {
     }
   }
 
-  .mallki-text {
+  .link--mall-ki {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     font-size: 20px;
     font-weight: bold;
   }
@@ -84,7 +84,7 @@ export default {
     width: 70px !important;
     position: absolute !important;
     top: -45px;
-    left: 0px;
+    left: 0;
     border: 5px solid #ffffff;
     background-color: #fff;
     margin: auto;
@@ -101,7 +101,7 @@ export default {
   }
 
   @media only screen and (max-width: 1510px) {
-    .mallki-text {
+    .link--mall-ki {
       display: none;
     }
   }

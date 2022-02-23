@@ -18,7 +18,7 @@
 import { scrollTo } from 'plugins-methods'
 
 export default {
-  name: 'Pagination',
+  name: 'ComponentsPagination',
   props: {
     total: { required: true, type: Number },
     page: { type: Number, default: 1 },

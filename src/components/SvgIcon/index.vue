@@ -8,7 +8,7 @@
 import { pmFormat } from 'plugins-methods'
 
 export default {
-  name: 'SvgIcon',
+  name: 'ComponentsSvgIcon',
   props: {
     iconClass: { type: String, required: true },
     className: { type: String, default: '' }

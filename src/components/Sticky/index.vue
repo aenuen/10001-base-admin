@@ -1,9 +1,6 @@
 <template>
   <div :style="{height:height+'px',zIndex:zIndex}">
-    <div
-      :class="className"
-      :style="{top:(isSticky ? stickyTop +'px' : ''),zIndex:zIndex,position:position,width:width,height:height+'px'}"
-    >
+    <div :class="className" :style="{top:(isSticky ? stickyTop +'px' : ''),zIndex:zIndex,position:position,width:width,height:height+'px'}">
       <slot>
         <div>sticky</div>
       </slot>
@@ -13,20 +10,11 @@
 
 <script>
 export default {
-  name: 'Sticky',
+  name: 'ComponentsSticky',
   props: {
-    stickyTop: {
-      type: Number,
-      default: 0
-    },
-    zIndex: {
-      type: Number,
-      default: 1
-    },
-    className: {
-      type: String,
-      default: ''
-    }
+    stickyTop: { type: Number, default: 0 },
+    zIndex: { type: Number, default: 1 },
+    className: { type: String, default: '' }
   },
   data() {
     return {
