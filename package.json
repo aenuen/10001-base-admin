@@ -4,8 +4,8 @@
   "description": "lawyer,admin",
   "author": "aenuen<aenuen@qq.com>",
   "scripts": {
-    "dev": "vue-cli-service serve",
-    "pro": "vue-cli-service build",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
     "lint": "eslint --ext .js,.vue src",
     "rm:dist": "rimraf dist",
     "rm:node": "rimraf node_modules"

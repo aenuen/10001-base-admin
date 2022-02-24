@@ -1,6 +1,6 @@
 module.exports = {
   title: '居乐律师', // 项目名称
-  port: 20301, // 项目端口
+  port: 10001, // 项目端口
   showSettings: false, // 是否显示 showSettings
   tagsView: true, // 是否使用 tagsView
   fixedHeader: false, // 是否启用 fixedHeader

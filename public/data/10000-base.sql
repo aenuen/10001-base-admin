@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : localhost
 Source Server Version : 50726
 Source Host           : localhost:3306
-Source Database       : 20320-video
+Source Database       : 10000-base
 
 Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2022-02-21 17:47:40
+Date: 2022-02-24 16:24:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,19 +20,19 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `aa_user`;
 CREATE TABLE `aa_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `isAdmin` tinyint(4) DEFAULT '0',
-  `isUse` tinyint(4) DEFAULT '1',
-  `username` varchar(50) COLLATE utf8_unicode_ci DEFAULT '',
-  `password` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `petName` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `realName` varchar(50) COLLATE utf8_unicode_ci DEFAULT '',
-  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
-  `mobile` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
-  `avatar` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
-  `introduction` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `roles` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
-  `created` int(11) DEFAULT '0',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自动编号',
+  `isAdmin` tinyint(4) DEFAULT '0' COMMENT '是否后台管理员',
+  `isUse` tinyint(4) DEFAULT '1' COMMENT '使用状态',
+  `username` varchar(50) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '用户名',
+  `password` varchar(50) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '密码',
+  `petName` varchar(50) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '昵称',
+  `realName` varchar(50) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '真实姓名',
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '电子邮箱',
+  `mobile` varchar(255) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '手机号码',
+  `avatar` varchar(255) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '头像',
+  `introduction` varchar(255) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '简介',
+  `roles` varchar(255) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '角色',
+  `created` int(11) DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -58,18 +58,12 @@ INSERT INTO `aa_user` VALUES ('12', '1', '1', 'aalhy', '7f26b8bb416f57380363f90d
 -- ----------------------------
 DROP TABLE IF EXISTS `aa_user_avatar`;
 CREATE TABLE `aa_user_avatar` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) DEFAULT NULL,
-  `avatar` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自动编号',
+  `uid` int(11) DEFAULT '0' COMMENT '用户ID',
+  `avatar` varchar(255) COLLATE utf8_unicode_ci DEFAULT '' COMMENT '头像',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of aa_user_avatar
 -- ----------------------------
-
--- ----------------------------
--- View structure for b
--- ----------------------------
-DROP VIEW IF EXISTS `b`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `b` AS select `aa_stats`.`client` AS `client`,count(0) AS `num` from `aa_stats` where (`aa_stats`.`client` <> '') group by `aa_stats`.`client` ;
