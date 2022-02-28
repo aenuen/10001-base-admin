@@ -1,6 +1,6 @@
 <script>
 import { export_json_to_excel as exportJson } from '@/libs/export/ExportToExcel'
-import { pmTime } from 'plugins-methods'
+import { timeFormat } from 'methods-libs'
 
 export default {
   methods: {
@@ -18,7 +18,7 @@ export default {
     },
     exportFormat(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {
-        return j === 'created' ? pmTime.timeFormat(v[j]) : v[j]
+        return j === 'created' ? timeFormat(v[j]) : v[j]
       }))
     }
   }

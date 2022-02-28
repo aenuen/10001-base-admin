@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { pmFormat } from 'plugins-methods'
+import { formatExternal } from 'methods-libs'
 
 export default {
   name: 'ComponentsSvgIcon',
@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     isExternal() {
-      return pmFormat.formatExternal(this.iconClass)
+      return formatExternal(this.iconClass)
     },
     iconName() {
       return `#icon-${this.iconClass}`

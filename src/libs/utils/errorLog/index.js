@@ -1,15 +1,15 @@
 import Vue from 'vue'
-import { pmType } from 'plugins-methods'
+import { typeArray, typeString } from 'methods-libs'
 import store from '@/store'
 import settings from '@/settings'
 
 const { errorLog: needErrorLog } = settings
 const checkNeed = () => {
   const env = process.env.NODE_ENV
-  if (pmType.typeString(needErrorLog)) {
+  if (typeString(needErrorLog)) {
     return env === needErrorLog
   }
-  if (pmType.typeArray(needErrorLog)) {
+  if (typeArray(needErrorLog)) {
     return needErrorLog.includes(env)
   }
   return false

@@ -1,5 +1,5 @@
 <script>
-import { pmValidate } from 'plugins-methods'
+import { validateErrMsg } from 'methods-libs'
 
 export default {
   data() {
@@ -29,7 +29,7 @@ export default {
       this.submitLoading = false
     },
     validateErrHandle(fields) {
-      const msg = pmValidate.validateErrMsg(fields)
+      const msg = validateErrMsg(fields)
       this.$message.error(msg)
       this.submitLoading = false
     }

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { pmFormat } from 'plugins-methods'
+import { formatExternal } from 'methods-libs'
 
 export default {
   props: {
@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     isExternal() {
-      return pmFormat.formatExternal(this.to)
+      return formatExternal(this.to)
     },
     type() {
       return this.isExternal ? 'a' : 'router-link'

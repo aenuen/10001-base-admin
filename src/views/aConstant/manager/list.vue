@@ -63,7 +63,7 @@
 <script>
 import { fields } from './modules/fields'
 import { rolesAry, rolesObject, rolesParse } from './modules/roles'
-import { isUseAry, booleanAry, pmKeyword } from 'plugins-methods'
+import { isUseAry, booleanAry, keyLight } from 'methods-libs'
 import ListMixin from '@/components/Mixins/ListMixin'
 import MethodsMixin from '@/components/Mixins/MethodsMixin'
 import ListTable from './components/ListTable'
@@ -104,14 +104,14 @@ export default {
           this.tableData.forEach(item => {
             this.tableIsUse[item.id] = +item.isUse === 1
             this.tableIsAdmin[item.id] = +item.isAdmin === 1
-            item.usernameKeyword = pmKeyword.keywordHeightLight(this.queryList, 'username', item.username)
-            item.petNameKeyword = pmKeyword.keywordHeightLight(this.queryList, 'petName', item.petName)
-            item.realNameKeyword = pmKeyword.keywordHeightLight(this.queryList, 'realName', item.realName)
-            item.emailKeyword = pmKeyword.keywordHeightLight(this.queryList, 'email', item.email)
-            item.mobileKeyword = pmKeyword.keywordHeightLight(this.queryList, 'mobile', item.mobile)
+            item.usernameKeyword = keyLight(this.queryList, 'username', item.username)
+            item.petNameKeyword = keyLight(this.queryList, 'petName', item.petName)
+            item.realNameKeyword = keyLight(this.queryList, 'realName', item.realName)
+            item.emailKeyword = keyLight(this.queryList, 'email', item.email)
+            item.mobileKeyword = keyLight(this.queryList, 'mobile', item.mobile)
             const object = { roles: rolesObject[this.queryList.roles] || '' }
             const roles = rolesParse(item.roles)
-            item.rolesKeyword = pmKeyword.keywordHeightLight(object, 'roles', roles)
+            item.rolesKeyword = keyLight(object, 'roles', roles)
           })
         }
       })

@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { pmValidate } from 'plugins-methods'
+import { validateRequire, validateUsername } from 'methods-libs'
 import { CryptoJsEncode } from '@/libs/cryptojs'
 
 export default {
@@ -51,8 +51,12 @@ export default {
   data() {
     return {
       loginRules: {
-        username: [{ validator: pmValidate.validateUsername }],
-        password: [{ validator: (rule, value, callback) => pmValidate.validateRequire(rule, value, callback, '密码', 6, 20) }]
+        username: [
+          { validator: validateUsername }
+        ],
+        password: [
+          { validator: (rule, value, callback) => validateRequire(rule, value, callback, '密码', 6, 20) }
+        ]
       },
       passwordType: 'password',
       capsTooltip: false,

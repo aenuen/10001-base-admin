@@ -51,7 +51,7 @@
 <script>
 import { fields } from '../modules/fields'
 import noneImage from '@/assets/image/noneImage.png'
-import { filterDateHI } from 'plugins-methods'
+import { filterDateHI } from 'methods-libs'
 export default {
   name: 'ListTable',
   filters: {

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { pmFormat } from 'plugins-methods'
+import { formatExternal } from 'methods-libs'
 import path from 'path'
 import Item from './Item'
 import AppLink from './Link'
@@ -36,18 +36,9 @@ export default {
   components: { Item, AppLink },
   mixins: [fixIOSBug],
   props: {
-    item: {
-      type: Object,
-      required: true
-    },
-    isNest: {
-      type: Boolean,
-      default: false
-    },
-    basePath: {
-      type: String,
-      default: ''
-    }
+    item: { type: Object, required: true },
+    isNest: { type: Boolean, default: false },
+    basePath: { type: String, default: '' }
   },
   data() {
     this.onlyOneChild = null
@@ -71,8 +62,8 @@ export default {
       return false
     },
     resolvePath(routePath) {
-      if (pmFormat.formatExternal(routePath)) return routePath
-      if (pmFormat.formatExternal(this.basePath)) return this.basePath
+      if (formatExternal(routePath)) return routePath
+      if (formatExternal(this.basePath)) return this.basePath
       return path.resolve(this.basePath, routePath)
     }
   }

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { scrollTo } from 'plugins-methods'
+import { scrollTo } from 'methods-libs'
 
 export default {
   name: 'ComponentsPagination',

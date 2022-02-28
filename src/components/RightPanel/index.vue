@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { pmClass } from 'plugins-methods'
+import { classAdd, classRemove } from 'methods-libs'
 
 export default {
   name: 'ComponentsRightPanel',
@@ -37,9 +37,9 @@ export default {
         this.addEventClick()
       }
       if (value) {
-        pmClass.classAdd(document.body, 'showRightPanel')
+        classAdd(document.body, 'showRightPanel')
       } else {
-        pmClass.classRemove(document.body, 'showRightPanel')
+        classRemove(document.body, 'showRightPanel')
       }
     }
   },
