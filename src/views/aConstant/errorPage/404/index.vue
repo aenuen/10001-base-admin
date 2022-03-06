@@ -1,6 +1,6 @@
 <template>
-  <div class="wscn-http404-container">
-    <div class="wscn-http404">
+  <div class="container-404">
+    <div class="http404">
       <div class="pic-404">
         <img class="pic-404__parent" src="image/404.png" alt="404">
         <img class="pic-404__child left" src="image/404_cloud.png" alt="404">
