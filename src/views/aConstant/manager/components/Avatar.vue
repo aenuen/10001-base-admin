@@ -80,6 +80,7 @@ export default {
       userApi.avatarUpload({ id: this.aid, avatar: res.dataURL }).then(({ code, data, msg }) => {
         if (code === 200) {
           this.$store.commit('user/SET_AVATAR', data)
+          this.avatarList.push(data)
           this.$message.success(msg)
         } else {
           this.$message.error(msg)

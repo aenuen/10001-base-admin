@@ -1,7 +1,7 @@
 
 const adminPort = 10001
 const servePort = adminPort - 1
-const title = '模版样式'
+const title = '基础模版'
 const isDevMode = process.env.NODE_ENV === 'development'
 const data = {
   port: servePort, // 项目端口
