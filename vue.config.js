@@ -11,6 +11,7 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV === 'development', // 每次开启保存是否进行eslint检测
   productionSourceMap: false, // 生产环境是否生成sourceMap文件
   devServer: {
+    // host: 'localhost',
     port: defaultSettings.port, // 项目端口
     open: true,
     overlay: { // 在浏览器上全屏显示编译的errors或warnings

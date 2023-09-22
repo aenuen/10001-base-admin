@@ -92,6 +92,14 @@ export default {
       fields,
       noneImage
     }
+  },
+  methods: {
+    onIsAdminChange(event, id) {
+      this.$emit('onIsAdminChange', event, id)
+    },
+    onIsUseChange(event, id) {
+      this.$emit('onIsUseChange', event, id)
+    }
   }
 }
 </script>

@@ -183,7 +183,7 @@ export default {
       event = event ? '1' : '0'
       userApi.isAdmin({ id, event }).then((res) => {
         const { data, msg } = res
-        if (data === '1') {
+        if (+data === 1) {
           this.$message.success(msg)
         } else {
           this.$message.info(msg)

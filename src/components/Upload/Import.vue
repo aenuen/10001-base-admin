@@ -1,16 +1,7 @@
 <template>
   <div>
     <el-dialog v-if="importShow" title="导入数据" width="500px" :visible.sync="importShow">
-      <upload
-        :file-text="fileText"
-        :file-list="fileList"
-        :file-limit="fileLimit"
-        :file-accept="fileAccept"
-        :file-action="fileAction"
-        :file-disabled="fileDisable"
-        :file-data="fileData"
-        @onSuccess="onImportSuccess"
-      />
+      <upload :file-text="fileText" :file-list="fileList" :file-limit="fileLimit" :file-accept="fileAccept" :file-action="fileAction" :file-disabled="fileDisable" :file-data="fileData" @onSuccess="onImportSuccess" />
     </el-dialog>
     <el-button @click="controlImport(true)">上传</el-button>
   </div>
