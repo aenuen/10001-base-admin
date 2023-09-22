@@ -3,7 +3,7 @@ const lotteryRouter = {
   path: '/lottery', name: 'lottery', component: Layout, redirect: '/lottery/list',
   meta: {
     title: '乐透管理',
-    icon: 'peoples',
+    icon: 'example',
     roles: ['admin']
   },
   children: [
