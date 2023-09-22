@@ -79,13 +79,18 @@ export default {
     onCutSuccess(res) {
       userApi.avatarUpload({ id: this.aid, avatar: res.dataURL }).then(({ code, data, msg }) => {
         if (code === 200) {
+          // 头像同步更新
           this.$store.commit('user/SET_AVATAR', data)
+          // 头像加入列表尾部
           this.avatarList.push(data)
+          // 提示成功
           this.$message.success(msg)
         } else {
+          // 提示失败
           this.$message.error(msg)
         }
       })
+      // 关闭剪切窗口
       this.cutterToggle()
     },
     // 获取头像列表
