@@ -1,0 +1,1 @@
+export const printCss = '.tableHeader {width:100%;padding: 20px 0;ine-height: 20px;font-size: 14px;color: #aaa;display: flex;}.tableHeader div {flex: 1;text-align: center;}table tr td,th{border-collapse:collapse;padding:4px;border:1px #000 solid;text-align:center}'
