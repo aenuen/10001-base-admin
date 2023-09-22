@@ -31,7 +31,7 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-dialog v-if="cutterControl" title="上传头像" width="815px" :visible.sync="cutterControl">
+    <el-dialog v-if="cutterControl" title="上传头像" width="800px" :visible.sync="cutterControl">
       <ImgCutter @onCutSuccess="onCutSuccess" />
     </el-dialog>
   </div>
