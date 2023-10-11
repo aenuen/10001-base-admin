@@ -1,9 +1,9 @@
 // 异步加载
-import lotteryRouter from './modules/lottery'
-import iconsRouter from './modules/icons'
+import LotteryRouter from './modules/lottery'
+import IconsRouter from './modules/icons'
 const asyncRoutes = [
-  lotteryRouter,
-  iconsRouter,
+  LotteryRouter,
+  IconsRouter,
   { path: '*', redirect: '/404', hidden: true } // 无页面=404页面
 ]
 
