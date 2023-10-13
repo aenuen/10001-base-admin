@@ -4,7 +4,7 @@ const servePort = adminPort - 1
 const title = '基础模版'
 const isDevMode = process.env.NODE_ENV === 'development'
 const data = {
-  port: servePort, // 项目端口
+  port: adminPort, // 项目端口
   title, // 项目名称
   showSettings: false, // 是否显示 showSettings
   tagsView: true, // 是否使用 tagsView

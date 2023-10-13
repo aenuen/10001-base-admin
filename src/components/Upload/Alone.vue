@@ -1,6 +1,6 @@
 <template>
   <div class="uploaderWrap" :style="{ width: width + 'px', height: lastHeight + 'px' }">
-    <div v-if="isEdit" style="position: absolute; bottom: 0; text-align: center">
+    <div v-if="isUpdate" style="position: absolute; bottom: 0; text-align: center">
       <el-button @click="cancelUpdate">取消编辑</el-button>
     </div>
     <div class="uploader" :style="{ width: width + 'px', height: height + 'px' }">
@@ -60,7 +60,7 @@ export default {
   props: {
     width: { type: Number, default: 100 },
     height: { type: Number, default: 100 },
-    maxSize: { type: Number, default: 2 },
+    maxSize: { type: Number, default: 1 },
     desc: { type: String, default: '' },
     accept: { type: String, default: '' },
     action: { type: String, default: '' },
@@ -78,7 +78,7 @@ export default {
       percentage: 0,
       progress: false,
       fileBak: '',
-      isEdit: false
+      isUpdate: false
     }
   },
   computed: {
@@ -101,7 +101,7 @@ export default {
     // 上传成功
     onUploadSuccess({ code, data }, file) {
       if (code === 200) {
-        this.isEdit = false
+        this.isUpdate = false
         const { url, name, id } = data
         this.$nextTick(() => {
           this.fileUrl = url
@@ -159,12 +159,12 @@ export default {
     onUploadUpdate() {
       this.fileBak = this.fileUrl
       this.fileUrl = ''
-      this.isEdit = true
+      this.isUpdate = true
     },
     // 取消更新
     cancelUpdate() {
       this.fileUrl = this.fileBak
-      this.isEdit = false
+      this.isUpdate = false
     },
     // 清除
     clearFileUrl() {
