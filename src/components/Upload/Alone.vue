@@ -1,6 +1,6 @@
 <template>
   <div class="uploaderWrap" :style="{ width: width + 'px', height: lastHeight + 'px' }">
-    <div v-if="isUpdate" style="position: absolute; bottom: -40px; text-align: center">
+    <div v-if="isUpdate" style="position: absolute; bottom: -35px; left: 1px; text-align: center">
       <el-button @click="cancelUpdate">取消编辑</el-button>
     </div>
     <div class="uploader" :style="{ width: width + 'px', height: height + 'px' }">
@@ -32,7 +32,7 @@
           <span v-if="showUpdate" @click="onUploadUpdate">
             <i class="el-icon-edit" />
           </span>
-          <span v-else @click="onUploadRemove">
+          <span v-if="showRemove" @click="onUploadRemove">
             <i class="el-icon-delete" />
           </span>
         </div>
@@ -53,6 +53,7 @@ import FileShow from '@/components/FileShow'
 // mixin
 // plugins
 import { getToken } from '@/libs/utils/token'
+import { fileClassify } from 'abbott-methods/import'
 // settings
 import { apiBaseUrl } from '@/libs/axios/settings'
 export default {
@@ -65,14 +66,14 @@ export default {
     accept: { type: String, default: '' },
     action: { type: String, default: '' },
     data: { type: Object, default: () => {} },
-    showUpdate: Boolean
+    showUpdate: Boolean,
+    showRemove: Boolean
   },
   data() {
     return {
       fileId: 0,
       fileUrl: '',
       fileAlt: '',
-      classify: '',
       dialogVisible: '',
       dialogImageUrl: '',
       percentage: 0,
@@ -82,6 +83,9 @@ export default {
     }
   },
   computed: {
+    classify() {
+      return this.fileUrl ? fileClassify(this.fileUrl) : ''
+    },
     headers() {
       return {
         Authorization: `Bearer ${getToken()}`
@@ -108,7 +112,7 @@ export default {
           this.fileAlt = name
           this.fileId = id
         }, 1000)
-        this.$emit('onUploadSuccess', id)
+        this.$emit('onSu', id)
       }
       this.percentage = 100
       setTimeout(() => {
@@ -149,7 +153,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
-          this.$emit('onUploadRemove', this.fileId)
+          this.$emit('onRe', this.fileId)
         })
         .catch(() => {
           this.$message.info('取消删除')
