@@ -38,6 +38,9 @@ export default {
       license,
       fields
     }
+  },
+  computed() {
+    console.log(this.license)
   }
 }
 </script>

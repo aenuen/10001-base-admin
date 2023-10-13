@@ -1,9 +1,9 @@
 
 const adminPort = 10001
-const servePort = adminPort - 1
+const servePort = 10000
 const title = '基础模版'
 const isDevMode = process.env.NODE_ENV === 'development'
-const data = {
+module.exports = {
   port: adminPort, // 项目端口
   title, // 项目名称
   showSettings: false, // 是否显示 showSettings
@@ -15,5 +15,3 @@ const data = {
   isDevMode,
   apiBaseUrl: isDevMode ? `http://localhost:${servePort}` : `http://localhost:${servePort}`
 }
-
-module.exports = data

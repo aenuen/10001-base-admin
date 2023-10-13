@@ -1,6 +1,6 @@
 <template>
   <div class="uploaderWrap" :style="{ width: width + 'px', height: lastHeight + 'px' }">
-    <div v-if="isUpdate" style="position: absolute; bottom: 0; text-align: center">
+    <div v-if="isUpdate" style="position: absolute; bottom: -40px; text-align: center">
       <el-button @click="cancelUpdate">取消编辑</el-button>
     </div>
     <div class="uploader" :style="{ width: width + 'px', height: height + 'px' }">
@@ -60,7 +60,7 @@ export default {
   props: {
     width: { type: Number, default: 100 },
     height: { type: Number, default: 100 },
-    maxSize: { type: Number, default: 1 },
+    maxSize: { type: Number, default: 5 },
     desc: { type: String, default: '' },
     accept: { type: String, default: '' },
     action: { type: String, default: '' },

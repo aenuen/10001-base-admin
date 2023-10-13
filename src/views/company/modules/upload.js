@@ -8,6 +8,6 @@ export const rule = {
 const licenseType = 'jpg,jpeg,gif,png,pdf,doc,docx'
 export const license = {
   licenseType,
-  action: '/company/ruleUpload',
+  action: '/company/licenseUpload',
   accept: defineAccept(licenseType.split(','))
 }
