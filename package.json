@@ -1,7 +1,7 @@
 {
-  "name": "base-admin-a1",
+  "name": "base-admin",
   "version": "1.0.0",
-  "description": "lawyer,admin",
+  "description": "admin",
   "author": "aenuen<aenuen@qq.com>",
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -73,7 +73,7 @@
     "last 2 versions"
   ],
   "bugs": {
-    "url": "https://github.com/aenuen/20321-talent-admin/issues"
+    "url": "https://github.com/aenuen/10001-base-admin/issues"
   },
   "engines": {
     "node": ">=8.9",
@@ -97,6 +97,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aenuen/20321-talent-admin.git"
+    "url": "git+https://github.com/aenuen/10001-base-admin.git"
   }
 }

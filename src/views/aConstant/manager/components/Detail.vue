@@ -197,7 +197,7 @@ export default {
                     this.submitHandle(msg)
                     this.routerClose('/manager/list')
                   } else {
-                    this.submitLoading = false
+                    this.submitLoadingClose()
                   }
                 })
                 .catch(() => {

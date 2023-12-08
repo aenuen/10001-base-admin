@@ -7,6 +7,7 @@ export const fields = {
   realName: '真实姓名',
   avatar: '头像',
   password: '密码',
+  affirmPassword: '确定密码',
   email: '电子邮箱',
   mobile: '手机号码',
   roles: '角色',

@@ -1,4 +1,3 @@
-<!--suppress JSUnresolvedFunction, CssUnknownProperty -->
 <template>
   <div>
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="off" label-position="left">
@@ -23,7 +22,10 @@
           </span>
         </el-form-item>
       </el-tooltip>
-      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px" @click.native.prevent="login"> 登录 </el-button>
+      <div class="buttons">
+        <el-button type="primary" :loading="loading" @click.native.prevent="login"> 登录 </el-button>
+        <el-button @click.native.prevent="register">我还没有账号，去注册 </el-button>
+      </div>
     </el-form>
   </div>
 </template>
@@ -71,6 +73,9 @@ export default {
     showPwd() {
       this.passwordType = this.passwordType === 'password' ? '' : 'password'
       this.$nextTick(() => this.$refs.password.focus()) // 自动聚焦
+    },
+    register() {
+      this.$router.push('/register')
     },
     login() {
       this.$refs.loginForm.validate((valid) => {
@@ -183,5 +188,9 @@ $light_gray: #eee;
   color: $dark_gray;
   cursor: pointer;
   user-select: none;
+}
+
+.buttons {
+  text-align: center;
 }
 </style>

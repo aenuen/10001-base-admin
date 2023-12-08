@@ -13,7 +13,6 @@ export default {
   components: {
     loginForm
   },
-  props: { /* 定义传值 */ },
   data() {
     return {
       loginForm: {
@@ -25,7 +24,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         const query = route.query
         if (query) {
           this.redirect = query.redirect
@@ -34,8 +33,6 @@ export default {
       },
       immediate: true
     }
-  },
-  mounted() {
   },
   methods: {
     loginSubmit() {

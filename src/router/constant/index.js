@@ -4,12 +4,14 @@ import Router from 'vue-router'
 Vue.use(Router)
 // 固定加载
 import homeRouter from './modules/home'
+import registerRouter from './modules/register'
 import { loginRouter, httpRedirectRouter, authRedirectRouter } from './modules/login'
 import { errorPage401Router, errorPage404Router } from './modules/errorPage'
 import managerRouter from './modules/manager'
 
 export const constantRoutes = [
   loginRouter, // 登录
+  registerRouter, // 注册
   authRedirectRouter, // 身份重定向
   httpRedirectRouter, // 网址重定向
   errorPage401Router, // 401页面
