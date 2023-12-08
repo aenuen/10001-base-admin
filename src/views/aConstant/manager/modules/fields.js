@@ -16,5 +16,12 @@ export const fields = {
   created: '创建日期',
   createDate: '创建日期',
   aheadDate: '开始日期',
-  afterDate: '结束日期'
+  afterDate: '结束日期',
+  noAccount: '我还没有账号，去注册',
+  haveAccount: '我已有账号，去登录',
+  login: '登录',
+  loginTitle: '管理员登录',
+  register: '注册',
+  registerTitle: '管理员注册',
+  capsTooltip: '您输入的是大写'
 }

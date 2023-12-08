@@ -2,7 +2,7 @@
   <div class="register-container">
     <el-form ref="postForm" :model="postForm" :rules="rulesForm" class="register-form" autocomplete="off" label-position="left">
       <div class="title-container">
-        <h3 class="title">管理员注册</h3>
+        <h3 class="title">{{ fields.registerTitle }}</h3>
       </div>
       <el-form-item prop="username" :label="fields.username" :label-width="labelWidth">
         <el-input v-model="postForm.username" :placeholder="fields.username" clearable autocomplete="off" />
@@ -26,8 +26,8 @@
         <el-input v-model="postForm.mobile" :placeholder="fields.mobile" clearable autocomplete="off" @keyup.enter.native="submitFrom" />
       </el-form-item>
       <el-form-item :label-width="labelWidth" style="text-align: center">
-        <el-button type="primary" :loading="submitLoading" :disabled="submitLoading" @click="submitFrom">{{ submitText }}</el-button>
-        <el-button @click="login">我已有账号，去登录</el-button>
+        <el-button type="primary" :loading="submitLoading" :disabled="submitLoading" @click="submitFrom">{{ fields.register }}</el-button>
+        <el-button @click="login">{{ fields.haveAccount }}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -56,8 +56,7 @@ export default {
       fields,
       rulesForm,
       postForm: {},
-      labelWidth: '80px',
-      submitText: '注册'
+      labelWidth: '80px'
     }
   },
   methods: {

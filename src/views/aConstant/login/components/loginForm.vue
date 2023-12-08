@@ -2,37 +2,38 @@
   <div>
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="off" label-position="left">
       <div class="title-container">
-        <h3 class="title">管理员登录</h3>
+        <h3 class="title">{{ fields.loginTitle }}</h3>
       </div>
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input ref="username" v-model="loginForm.username" placeholder="用户名" name="username" type="text" tabindex="1" autocomplete="off" @keyup.enter.native="login" />
+        <el-input ref="username" v-model="loginForm.username" :placeholder="fields.username" name="username" type="text" tabindex="1" autocomplete="off" @keyup.enter.native="login" />
       </el-form-item>
-      <el-tooltip v-model="capsTooltip" content="您输入的是大写" placement="right" manual>
+      <el-tooltip v-model="capsTooltip" :content="fields.capsTooltip" placement="right" manual>
         <el-form-item prop="password">
           <span class="svg-container">
             <svg-icon icon-class="password" />
           </span>
           <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-          <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" placeholder="密码" name="password" tabindex="2" autocomplete="off" @keyup.native="checkCapsLock" @blur="capsTooltip = false" @keyup.enter.native="login" />
+          <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" :placeholder="fields.password" name="password" tabindex="2" autocomplete="off" @keyup.native="checkCapsLock" @blur="capsTooltip = false" @keyup.enter.native="login" />
           <span class="show-pwd" @click="showPwd">
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
           </span>
         </el-form-item>
       </el-tooltip>
       <div class="buttons">
-        <el-button type="primary" :loading="loading" @click.native.prevent="login"> 登录 </el-button>
-        <el-button @click.native.prevent="register">我还没有账号，去注册 </el-button>
+        <el-button type="primary" :loading="loading" @click.native.prevent="login"> {{ fields.login }} </el-button>
+        <el-button @click.native.prevent="register">{{ fields.noAccount }}</el-button>
       </div>
     </el-form>
   </div>
 </template>
 
 <script>
-import { validateUsername, validateRequire } from 'abbott-methods/import'
 import { CryptoJsEncode } from '@/libs/cryptojs'
+import { fields } from '../modules/fields'
+import { loginRules } from '../modules/rules'
 
 export default {
   name: 'LoginForm',
@@ -41,14 +42,8 @@ export default {
   },
   data() {
     return {
-      loginRules: {
-        username: [{ validator: validateUsername }],
-        password: [
-          {
-            validator: (rule, value, callback) => validateRequire(rule, value, callback, '密码', 6, 20)
-          }
-        ]
-      },
+      fields,
+      loginRules,
       passwordType: 'password',
       capsTooltip: false,
       loading: false,
